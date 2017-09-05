@@ -34,7 +34,7 @@ public class Player {
             System.err.println("You cannot add a negative score");
         }
     }
-    
+
     public void setOpponentsTableau(Tableau tableau) {
         opponentsTableau = tableau;
     }

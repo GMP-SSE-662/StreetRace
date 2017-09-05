@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class Hand {
 
-    private final List<Card> hand;
+    private List<Card> hand;
 
     public Hand() {
         hand = new ArrayList<>();

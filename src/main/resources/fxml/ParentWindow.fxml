@@ -7,7 +7,7 @@
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="mainBorderPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frijolie.streetrace.controller.ParentWindowController">
+<BorderPane fx:id="mainBorderPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frijolie.streetrace.ParentWindowController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>

@@ -1,5 +1,6 @@
 package com.frijolie.streetrace.model;
 
+import com.frijolie.streetrace.model.cards.Card;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

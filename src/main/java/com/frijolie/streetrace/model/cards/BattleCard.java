@@ -1,4 +1,4 @@
-package com.frijolie.streetrace.model;
+package com.frijolie.streetrace.model.cards;
 
 public abstract class BattleCard implements Card {
 

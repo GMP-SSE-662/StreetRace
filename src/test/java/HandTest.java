@@ -4,18 +4,18 @@ import static org.junit.Assert.*;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
-import com.frijolie.streetrace.model.Card;
-import com.frijolie.streetrace.model.DistanceCard;
-import com.frijolie.streetrace.model.DistanceCardType;
+import com.frijolie.streetrace.model.cards.Card;
+import com.frijolie.streetrace.model.cards.DistanceCard;
+import com.frijolie.streetrace.model.cards.DistanceCardType;
 import com.frijolie.streetrace.model.Hand;
-import com.frijolie.streetrace.model.HazardCard;
-import com.frijolie.streetrace.model.HazardCardType;
-import com.frijolie.streetrace.model.RemedyCard;
-import com.frijolie.streetrace.model.RemedyCardType;
-import com.frijolie.streetrace.model.SafetyCard;
-import com.frijolie.streetrace.model.SafetyCardType;
-import com.frijolie.streetrace.model.SpeedCard;
-import com.frijolie.streetrace.model.SpeedCardType;
+import com.frijolie.streetrace.model.cards.HazardCard;
+import com.frijolie.streetrace.model.cards.HazardCardType;
+import com.frijolie.streetrace.model.cards.RemedyCard;
+import com.frijolie.streetrace.model.cards.RemedyCardType;
+import com.frijolie.streetrace.model.cards.SafetyCard;
+import com.frijolie.streetrace.model.cards.SafetyCardType;
+import com.frijolie.streetrace.model.cards.SpeedCard;
+import com.frijolie.streetrace.model.cards.SpeedCardType;
 
 public class HandTest {
 

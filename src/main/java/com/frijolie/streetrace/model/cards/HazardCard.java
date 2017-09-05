@@ -1,5 +1,6 @@
-package com.frijolie.streetrace.model;
+package com.frijolie.streetrace.model.cards;
 
+import com.frijolie.streetrace.model.cards.BattleCard;
 import java.util.Objects;
 
 public class HazardCard extends BattleCard implements Card {

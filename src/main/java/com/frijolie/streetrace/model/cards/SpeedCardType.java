@@ -1,4 +1,4 @@
-package com.frijolie.streetrace.model;
+package com.frijolie.streetrace.model.cards;
 
 public enum SpeedCardType implements CardType {
 

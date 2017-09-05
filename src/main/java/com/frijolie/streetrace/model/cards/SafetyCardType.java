@@ -1,4 +1,4 @@
-package com.frijolie.streetrace.model;
+package com.frijolie.streetrace.model.cards;
 
 public enum SafetyCardType implements CardType {
     DRIVING_ACE(100,"/images/drivingace.png"),

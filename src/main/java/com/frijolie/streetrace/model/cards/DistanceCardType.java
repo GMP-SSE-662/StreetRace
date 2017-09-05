@@ -1,4 +1,4 @@
-package com.frijolie.streetrace.model;
+package com.frijolie.streetrace.model.cards;
 
 public enum DistanceCardType implements CardType {
     MILES_25(25,"/images/25.png"),

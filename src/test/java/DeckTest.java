@@ -3,13 +3,13 @@ import java.util.Map;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
 import org.junit.Test;
-import com.frijolie.streetrace.model.CardType;
+import com.frijolie.streetrace.model.cards.CardType;
 import com.frijolie.streetrace.model.Deck;
-import com.frijolie.streetrace.model.DistanceCardType;
-import com.frijolie.streetrace.model.HazardCardType;
-import com.frijolie.streetrace.model.RemedyCardType;
-import com.frijolie.streetrace.model.SafetyCardType;
-import com.frijolie.streetrace.model.SpeedCardType;
+import com.frijolie.streetrace.model.cards.DistanceCardType;
+import com.frijolie.streetrace.model.cards.HazardCardType;
+import com.frijolie.streetrace.model.cards.RemedyCardType;
+import com.frijolie.streetrace.model.cards.SafetyCardType;
+import com.frijolie.streetrace.model.cards.SpeedCardType;
 
 public class DeckTest {
 

@@ -1,6 +1,6 @@
-package com.frijolie.streetrace;
+package com.frijolie.streetrace.controller;
 
-import com.frijolie.streetrace.model.Card;
+import com.frijolie.streetrace.model.cards.Card;
 import com.frijolie.streetrace.model.Deck;
 import com.frijolie.streetrace.model.Hand;
 import com.frijolie.streetrace.model.Player;

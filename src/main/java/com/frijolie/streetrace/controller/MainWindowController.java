@@ -1,4 +1,4 @@
-package com.frijolie.streetrace;
+package com.frijolie.streetrace.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;

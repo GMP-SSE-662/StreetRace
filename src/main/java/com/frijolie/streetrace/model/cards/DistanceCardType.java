@@ -1,18 +1,18 @@
 package com.frijolie.streetrace.model.cards;
 
 public enum DistanceCardType implements CardType {
-    MILES_25(25,"/images/25.png"),
-    MILES_50(50,"/images/50.png"),
-    MILES_75(75,"/images/75.png"),
-    MILES_100(100,"/images/100.png"),
-    MILES_200(200,"/images/200.png");
+    MILES_25(25,"MILES_25"),
+    MILES_50(50,"MILES_50"),
+    MILES_75(75,"MILES_75"),
+    MILES_100(100,"MILES_100"),
+    MILES_200(200,"MILES_200");
 
     private final int value;
-    private final String path;
+    private final String name;
 
-    private DistanceCardType(int value, String path) {
+    private DistanceCardType(int value, String name) {
         this.value = value;
-        this.path = path;
+        this.name = name;
     }
 
     @Override
@@ -21,8 +21,8 @@ public enum DistanceCardType implements CardType {
     }
 
     @Override
-    public String getPath() {
-        return path;
+    public String getName() {
+        return name;
     }
 
 }

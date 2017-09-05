@@ -1,17 +1,17 @@
 package com.frijolie.streetrace.model.cards;
 
 public enum SafetyCardType implements CardType {
-    DRIVING_ACE(100,"/images/drivingace.png"),
-    EXTRA_TANK(100,"/images/extratank.png"),
-    PUNCTURE_PROOF(100,"/images/punctureproof.png"),
-    RIGHT_OF_WAY(100,"/images/rightofway.png");
+    DRIVING_ACE(100,"DRIVING_ACE"),
+    EXTRA_TANK(100,"EXTRA_TANK"),
+    PUNCTURE_PROOF(100,"PUNCTURE_PROOF"),
+    RIGHT_OF_WAY(100,"RIGHT_OF_WAY");
 
     private final int value;
-    private final String path;
+    private final String name;
 
-    private SafetyCardType(int value, String path) {
+    private SafetyCardType(int value, String name) {
         this.value = value;
-        this.path = path;
+        this.name = name;
     }
 
     @Override
@@ -20,8 +20,8 @@ public enum SafetyCardType implements CardType {
     }
 
     @Override
-    public String getPath() {
-        return path;
+    public String getName() {
+        return name;
     }
 
 }

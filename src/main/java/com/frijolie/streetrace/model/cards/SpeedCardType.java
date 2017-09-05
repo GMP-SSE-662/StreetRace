@@ -2,15 +2,15 @@ package com.frijolie.streetrace.model.cards;
 
 public enum SpeedCardType implements CardType {
 
-    SPEED_LIMIT(0,"/images/speedlimit.png"),
-    END_LIMIT(0,"/images/endlimit.png");
+    SPEED_LIMIT(0,"SPEED_LIMIT"),
+    END_LIMIT(0,"END_LIMIT");
 
     private final int value;
-    private final String path;
+    private final String name;
 
-    private SpeedCardType(int value, String path) {
+    private SpeedCardType(int value, String name) {
         this.value = value;
-        this.path = path;
+        this.name = name;
     }
 
     @Override
@@ -19,8 +19,8 @@ public enum SpeedCardType implements CardType {
     }
 
     @Override
-    public String getPath() {
-        return path;
+    public String getName() {
+        return name;
     }
 
 }

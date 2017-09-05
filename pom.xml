@@ -11,7 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>com.frijolie.streetrace.MainApp</mainClass>
+        <mainClass>com.frijolie.streetrace.controller.MainApp</mainClass>
     </properties>
 
     <organization>
@@ -47,7 +47,7 @@
                 <executions>
                     <execution>
                         <id>unpack-dependencies</id>
-                        
+
                         <phase>package</phase>
                         <goals>
                             <goal>exec</goal>
@@ -71,14 +71,14 @@
                     <execution>
                         <id>default-cli</id>
                         <goals>
-                            <goal>exec</goal>                            
+                            <goal>exec</goal>
                         </goals>
                         <configuration>
                             <executable>${java.home}/bin/java</executable>
                             <commandlineArgs>${runfx.args}</commandlineArgs>
                         </configuration>
                     </execution>
-                </executions>  
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

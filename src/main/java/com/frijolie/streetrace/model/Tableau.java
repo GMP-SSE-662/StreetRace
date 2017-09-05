@@ -1,35 +1,34 @@
 package com.frijolie.streetrace.model;
 
-import com.frijolie.streetrace.model.cards.SafetyCard;
-import com.frijolie.streetrace.model.cards.SpeedCard;
+import com.frijolie.streetrace.model.cards.BattleCard;
 import com.frijolie.streetrace.model.cards.Card;
-import com.frijolie.streetrace.model.cards.DistanceCardType;
+import com.frijolie.streetrace.model.cards.CardType;
 import com.frijolie.streetrace.model.cards.DistanceCard;
+import com.frijolie.streetrace.model.cards.DistanceCardType;
 import com.frijolie.streetrace.model.cards.HazardCard;
 import com.frijolie.streetrace.model.cards.RemedyCardType;
+import com.frijolie.streetrace.model.cards.SafetyCard;
+import com.frijolie.streetrace.model.cards.SpeedCard;
 import com.frijolie.streetrace.model.cards.SpeedCardType;
-import com.frijolie.streetrace.model.cards.CardType;
-import com.frijolie.streetrace.model.cards.BattleCard;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
+import java.util.Stack;
 
 public class Tableau {
 
     private final List<DistanceCard> distancePile;
     private final List<SafetyCard> safetyPile;
-    private final Deque<Card> speedPile;
-    private final Deque<BattleCard> battlePile;
+    private final Stack<Card> speedPile;
+    private final Stack<BattleCard> battlePile;
     private int totalMiles = 0;
     private int played200s = 0;
 
     public Tableau() {
         distancePile = new ArrayList<>();
         safetyPile = new ArrayList<>();
-        speedPile = new ArrayDeque<>();
-        battlePile = new ArrayDeque<>();
+        speedPile = new Stack<>();
+        battlePile = new Stack<>();
     }
 
     public int calculateTotalMiles() {
@@ -64,16 +63,16 @@ public class Tableau {
             "You can\'t add a null value card to the Safety Pile"));
     }
 
-    public boolean addToSpeedPile(SpeedCard card) {
+    public void addToSpeedPile(SpeedCard card) {
         // should only contain SPEED_LIMT and END_LIMIT cards
-        return speedPile.offerFirst(Objects.requireNonNull(card,
+        speedPile.push(Objects.requireNonNull(card,
             "You can\'t add a null value card to the Speed Pile"));
     }
 
-    public boolean addToBattlePile(BattleCard card) {
+    public void addToBattlePile(BattleCard card) {
         // should only contain ACCIDENT, OUT_OF_GAS, FLAT_TIRE, STOP, REPAIR, GASOLINE, SPARE_TIRE,
         // and ROLL cards
-        return battlePile.offerFirst(Objects.requireNonNull(card,
+        battlePile.push(Objects.requireNonNull(card,
             "You can\'t add a null value card to the Battle Pile"));
     }
 
@@ -83,7 +82,7 @@ public class Tableau {
             return false;
         }
 
-        CardType topCard = battlePile.peekFirst().getType();
+        CardType topCard = battlePile.peek().getType();
         return topCard == RemedyCardType.ROLL;
     }
 
@@ -99,7 +98,7 @@ public class Tableau {
         if (speedPile.isEmpty()) {
             return false;
         }
-        CardType topCard = speedPile.peekFirst().getType();
+        CardType topCard = speedPile.peek().getType();
         return topCard == SpeedCardType.SPEED_LIMIT;
     }
 
@@ -111,11 +110,11 @@ public class Tableau {
         return safetyPile;
     }
 
-    public Deque<Card> getSpeedPile() {
+    public Stack<Card> getSpeedPile() {
         return speedPile;
     }
 
-    public Deque<BattleCard> getBattlePile() {
+    public Stack<BattleCard> getBattlePile() {
         return battlePile;
     }
 
@@ -126,9 +125,9 @@ public class Tableau {
     public int getPlayed200s() {
         return played200s;
     }
-    
+
     public Card getBattlePileTopCard() {
-        return battlePile.getFirst();
+        return battlePile.peek();
     }
-    
+
 }

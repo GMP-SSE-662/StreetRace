@@ -4,4 +4,6 @@ public interface Card<T extends CardType> {
 
     public T getType();
 
+    public String getName();
+
 }

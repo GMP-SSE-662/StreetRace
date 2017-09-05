@@ -11,6 +11,11 @@ public class DistanceCard implements Card {
     }
 
     @Override
+    public String getName() {
+        return getType().getName();
+    }
+
+    @Override
     public CardType getType() {
         return type;
     }

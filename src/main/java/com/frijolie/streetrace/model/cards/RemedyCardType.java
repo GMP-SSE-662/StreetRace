@@ -2,17 +2,17 @@ package com.frijolie.streetrace.model.cards;
 
 public enum RemedyCardType implements CardType {
 
-    REPAIR(0,"/images/repair.png"),
-    GASOLINE(0,"/images/gasoline.png"),
-    SPARE_TIRE(0,"/images/spareTire.png"),
-    ROLL(0,"/images/roll.png");
+    REPAIR(0,"REPAIR"),
+    GASOLINE(0,"GASOLINE"),
+    SPARE_TIRE(0,"SPARE_TIRE"),
+    ROLL(0,"ROLL");
 
     private final int value;
-    private final String path;
+    private final String name;
 
-    private RemedyCardType(int value, String path) {
+    private RemedyCardType(int value, String name) {
         this.value = value;
-        this.path = path;
+        this.name = name;
     }
 
     @Override
@@ -21,8 +21,8 @@ public enum RemedyCardType implements CardType {
     }
 
     @Override
-    public String getPath() {
-        return path;
+    public String getName() {
+        return name;
     }
-    
+
 }

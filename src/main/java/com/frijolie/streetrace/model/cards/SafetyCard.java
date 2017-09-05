@@ -15,4 +15,9 @@ public class SafetyCard implements Card {
         return type;
     }
 
+    @Override
+    public String getName() {
+        return getType().getName();
+    }
+
 }

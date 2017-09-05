@@ -14,4 +14,9 @@ public class SpeedCard implements Card {
     public CardType getType() {
         return type;
     }
+
+    @Override
+    public String getName() {
+        return getType().getName();
+    }
 }

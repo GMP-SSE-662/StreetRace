@@ -2,17 +2,17 @@ package com.frijolie.streetrace.model.cards;
 
 public enum HazardCardType implements CardType {
 
-    ACCIDENT(0,"/images/accident.png"),
-    OUT_OF_GAS(0,"/images/outofgas.png"),
-    FLAT_TIRE(0,"/images/flattire.png"),
-    STOP(0,"/images/stop/png");
+    ACCIDENT(0,"ACCIDENT"),
+    OUT_OF_GAS(0,"OUT_OF_GAS"),
+    FLAT_TIRE(0,"FLAT_TIRE"),
+    STOP(0,"STOP");
 
     private final int value;
-    private final String path;
+    private final String name;
 
-    private HazardCardType(int value, String path) {
+    private HazardCardType(int value, String name) {
         this.value = value;
-        this.path = path;
+        this.name = name;
     }
 
     @Override
@@ -21,8 +21,8 @@ public enum HazardCardType implements CardType {
     }
 
     @Override
-    public String getPath() {
-        return path;
+    public String getName() {
+        return name;
     }
 
 }

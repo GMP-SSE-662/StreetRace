@@ -1,8 +1,4 @@
-import java.util.Deque;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
+import com.frijolie.streetrace.model.Tableau;
 import com.frijolie.streetrace.model.cards.BattleCard;
 import com.frijolie.streetrace.model.cards.Card;
 import com.frijolie.streetrace.model.cards.DistanceCard;
@@ -15,7 +11,11 @@ import com.frijolie.streetrace.model.cards.SafetyCard;
 import com.frijolie.streetrace.model.cards.SafetyCardType;
 import com.frijolie.streetrace.model.cards.SpeedCard;
 import com.frijolie.streetrace.model.cards.SpeedCardType;
-import com.frijolie.streetrace.model.Tableau;
+import java.util.Stack;
+import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class TableauTest {
 
@@ -49,11 +49,6 @@ public class TableauTest {
         DistanceCard card = new DistanceCard(DistanceCardType.MILES_200);
         Tableau instance = new Tableau();
         assertTrue(instance.addToDistancePile(card));
-        if (instance.addToDistancePile(card)) {
-            System.out.println("A valid DistanceCard was accepted in the Distance Pile");
-        } else {
-            System.err.println("A valid DistanceCard was NOT accepted in the Distance Pile");
-        }
     }
 
     @Test
@@ -66,21 +61,13 @@ public class TableauTest {
         DistanceCard card1 = new DistanceCard(DistanceCardType.MILES_100);
         DistanceCard card = new DistanceCard(DistanceCardType.MILES_200);
 
-        assertTrue(instance.addToDistancePile(card));
-        assertTrue(instance.addToDistancePile(card1));
-        assertTrue(instance.addToDistancePile(card2));
-        assertTrue(instance.addToDistancePile(card3));
-        assertTrue(instance.addToDistancePile(card4));
+        instance.addToDistancePile(card);
+        instance.addToDistancePile(card1);
+        instance.addToDistancePile(card2);
+        instance.addToDistancePile(card3);
+        instance.addToDistancePile(card4);
 
-        if (instance.addToDistancePile(card)
-            && instance.addToDistancePile(card1)
-            && instance.addToDistancePile(card2)
-            && instance.addToDistancePile(card3)
-            && instance.addToDistancePile(card1)) {
-            System.out.println("All valid DistanceCards were accepted in the Distance Pile");
-        } else {
-            System.err.println("All valid DistanceCards were NOT accepted into the Distance Pile");
-        }
+        assertEquals(instance.getDistancePile().size(),5);
     }
 
     @Test
@@ -109,12 +96,6 @@ public class TableauTest {
         Tableau instance = new Tableau();
 
         assertTrue(instance.addToSafetyPile(card));
-
-        if (instance.addToSafetyPile(card)) {
-            System.out.println("A valid SafetyCard was accepted in the Safety Pile");
-        } else {
-            System.err.println("A valid SafetyCard was NOT accepted in the Safety Pile");
-        }
     }
 
     @Test
@@ -134,19 +115,12 @@ public class TableauTest {
         SafetyCard punctureProof = new SafetyCard(SafetyCardType.PUNCTURE_PROOF);
         SafetyCard rightOfWay = new SafetyCard(SafetyCardType.RIGHT_OF_WAY);
 
-        assertTrue(instance.addToSafetyPile(drivingAce));
-        assertTrue(instance.addToSafetyPile(extraTank));
-        assertTrue(instance.addToSafetyPile(punctureProof));
-        assertTrue(instance.addToSafetyPile(rightOfWay));
+        instance.addToSafetyPile(drivingAce);
+        instance.addToSafetyPile(extraTank);
+        instance.addToSafetyPile(punctureProof);
+        instance.addToSafetyPile(rightOfWay);
 
-        if (instance.addToSafetyPile(drivingAce)
-            && instance.addToSafetyPile(extraTank)
-            && instance.addToSafetyPile(punctureProof)
-            && instance.addToSafetyPile(rightOfWay)) {
-            System.out.println("All valid SafetyCards were accepted in the Safety Pile");
-        } else {
-            System.err.println("All valid SafetyCards were not accepted in the Safety Pile");
-        }
+        assertEquals(instance.getSafetyPile().size(),4);
 
     }
 
@@ -154,13 +128,8 @@ public class TableauTest {
     public void testAddValidSpeedCardToSpeedPile() {
         SpeedCard card = new SpeedCard(SpeedCardType.END_LIMIT);
         Tableau instance = new Tableau();
-        boolean result = instance.addToSpeedPile(card);
-        assertTrue(result);
-        if (result) {
-            System.out.println("A valid SpeedCard was accepted in the Speed Pile");
-        } else {
-            System.err.println("A valid SpeedCard was NOT accepted in the Speed Pile");
-        }
+        instance.addToSpeedPile(card);
+        assertEquals(instance.getSpeedPile().size(), 1);
     }
 
     @Test
@@ -168,14 +137,11 @@ public class TableauTest {
         Tableau instance = new Tableau();
         SpeedCard card = new SpeedCard(SpeedCardType.END_LIMIT);
         SpeedCard card1 = new SpeedCard(SpeedCardType.SPEED_LIMIT);
-        assertTrue(instance.addToSpeedPile(card));
-        assertTrue(instance.addToSpeedPile(card1));
-        if (instance.addToSpeedPile(card)
-            && instance.addToSpeedPile(card1)) {
-            System.out.println("All valid SpeedCards were accepted in the Speed Pile");
-        } else {
-            System.err.println("All valid SpeedCards were NOT accepted in the Speed Pile");
-        }
+
+        instance.addToSpeedPile(card);
+        instance.addToSpeedPile(card1);
+        
+        assertEquals(instance.getSpeedPile().size(), 2);
     }
 
     @Test
@@ -190,13 +156,8 @@ public class TableauTest {
     public void testAddValidBattleCardToBattlePile() {
         BattleCard card = new HazardCard(HazardCardType.ACCIDENT);
         Tableau instance = new Tableau();
-        boolean result = instance.addToBattlePile(card);
-        assertTrue(result);
-        if (result) {
-            System.out.println("A valid BattleCard was accepted in the Battle Pile");
-        } else {
-            System.err.println("A valid BattleCard was NOT accepted in the Battle Pile");
-        }
+        instance.addToBattlePile(card);
+        assertEquals(instance.getBattlePile().size(),1);
     }
 
     @Test
@@ -220,27 +181,16 @@ public class TableauTest {
         BattleCard spareTire = new RemedyCard(RemedyCardType.SPARE_TIRE);
         BattleCard roll = new RemedyCard(RemedyCardType.ROLL);
 
-        assertTrue(instance.addToBattlePile(accident));
-        assertTrue(instance.addToBattlePile(outOfGas));
-        assertTrue(instance.addToBattlePile(flatTire));
-        assertTrue(instance.addToBattlePile(stop));
-        assertTrue(instance.addToBattlePile(repair));
-        assertTrue(instance.addToBattlePile(gasoline));
-        assertTrue(instance.addToBattlePile(spareTire));
-        assertTrue(instance.addToBattlePile(roll));
+        instance.addToBattlePile(accident);
+        instance.addToBattlePile(outOfGas);
+        instance.addToBattlePile(flatTire);
+        instance.addToBattlePile(stop);
+        instance.addToBattlePile(repair);
+        instance.addToBattlePile(gasoline);
+        instance.addToBattlePile(spareTire);
+        instance.addToBattlePile(roll);
 
-        if (instance.addToBattlePile(accident)
-            && instance.addToBattlePile(outOfGas)
-            && instance.addToBattlePile(flatTire)
-            && instance.addToBattlePile(stop)
-            && instance.addToBattlePile(repair)
-            && instance.addToBattlePile(gasoline)
-            && instance.addToBattlePile(spareTire)
-            && instance.addToBattlePile(roll)) {
-            System.out.println("All valid BattleCards were accepted in the Battle Pile");
-        } else {
-            System.err.println("All valid BattleCards were NOT accepted in the Battle Pile");
-        }
+        assertEquals(instance.getBattlePile().size(),8);
     }
 
     @Test
@@ -253,7 +203,7 @@ public class TableauTest {
     public void testIsRollingBattlePileNotEmptyTopCardNotRollShouldBeFalse() {
         Tableau instance = new Tableau();
         BattleCard accident = new HazardCard(HazardCardType.ACCIDENT);
-        Deque<BattleCard> battlePile = instance.getBattlePile();
+        Stack<BattleCard> battlePile = instance.getBattlePile();
         battlePile.add(accident);
         assertFalse(instance.isRolling());
     }

@@ -1,6 +1,5 @@
 package com.frijolie.streetrace.model.cards;
 
-import com.frijolie.streetrace.model.cards.BattleCard;
 import java.util.Objects;
 
 public class HazardCard extends BattleCard implements Card {
@@ -14,6 +13,11 @@ public class HazardCard extends BattleCard implements Card {
     @Override
     public CardType getType() {
         return type;
+    }
+
+    @Override
+    public String getName() {
+        return getType().getName();
     }
 
 }

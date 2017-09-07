@@ -1,5 +1,6 @@
 package com.frijolie.streetrace.controller;
 
+import com.frijolie.streetrace.model.StreetRaceGame;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +12,8 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-    private static StreetRace game = new StreetRace();
+    private final String TITLE = "StreetRace";
+    private final String VERSION = "0.1";
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -21,16 +23,19 @@ public class MainApp extends Application {
 
         scene.getStylesheets().add("/styles/parentwindow.css");
         scene.getStylesheets().add("/styles/mainwindow.css");
-        stage.setTitle("StreetRace");
+        stage.setTitle(TITLE + " v " + VERSION);
         stage.setResizable(false);
         stage.getIcons().add(new Image("/images/checkered-flag.png"));
         stage.setScene(scene);
         stage.show();
+
+        StreetRaceGame game = StreetRaceGame.getInstance();
+        game.startGame();
+
     }
 
     public static void main(String[] args) {
         launch(args);
-        game.startGame();
     }
 
 }

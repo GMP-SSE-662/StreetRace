@@ -6,8 +6,8 @@ public class Player {
 
     private final Hand hand;
     private final Tableau tableau;
+    private Tableau opponentTableau;
     private int score;
-    private Tableau opponentsTableau;
 
     public Player() {
         hand = new Hand();
@@ -16,6 +16,14 @@ public class Player {
 
     public Hand getHand() {
         return hand;
+    }
+
+    public Tableau getOpponentTableau() {
+        return opponentTableau;
+    }
+
+    public void setOpponentsTableau(Tableau tableau) {
+        opponentTableau = Objects.requireNonNull(tableau);
     }
 
     public Tableau getTableau() {
@@ -33,10 +41,6 @@ public class Player {
         } else {
             System.err.println("You cannot add a negative score");
         }
-    }
-
-    public void setOpponentsTableau(Tableau tableau) {
-        opponentsTableau = tableau;
     }
 
 }

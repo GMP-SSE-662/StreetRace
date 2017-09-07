@@ -1,3 +1,5 @@
+package com.frijolie.streetrace.model;
+
 import com.frijolie.streetrace.model.Tableau;
 import com.frijolie.streetrace.model.cards.BattleCard;
 import com.frijolie.streetrace.model.cards.Card;
@@ -12,19 +14,32 @@ import com.frijolie.streetrace.model.cards.SafetyCardType;
 import com.frijolie.streetrace.model.cards.SpeedCard;
 import com.frijolie.streetrace.model.cards.SpeedCardType;
 import java.util.Stack;
+import org.junit.After;
 import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class TableauTest {
 
+    Tableau instance;
+
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
+    @Before
+    public void setUp() {
+        instance = new Tableau();
+    }
+
+    @After
+    public void tearDown() {
+        instance = null;
+    }
+
     @Test
-    public void testCalculateTotalMiles() {
-        Tableau instance = new Tableau();
+    public void testTableau_CalculateTotalMiles() {
         int expResult = 625;
         DistanceCard card = new DistanceCard(DistanceCardType.MILES_100);
         DistanceCard card1 = new DistanceCard(DistanceCardType.MILES_100);
@@ -45,71 +60,61 @@ public class TableauTest {
     }
 
     @Test
-    public void testAddVailidDistanceCardToDistancePile() {
+    public void testTableau_AddVailidDistanceCardToDistancePile() {
         DistanceCard card = new DistanceCard(DistanceCardType.MILES_200);
-        Tableau instance = new Tableau();
         assertTrue(instance.addToDistancePile(card));
     }
 
     @Test
-    public void testAddAllValidDistanceCardsToDistancePile() {
-        Tableau instance = new Tableau();
+    public void testTableau_AddAllValidDistanceCardsToDistancePile() {
 
-        DistanceCard card4 = new DistanceCard(DistanceCardType.MILES_25);
-        DistanceCard card3 = new DistanceCard(DistanceCardType.MILES_50);
-        DistanceCard card2 = new DistanceCard(DistanceCardType.MILES_75);
-        DistanceCard card1 = new DistanceCard(DistanceCardType.MILES_100);
-        DistanceCard card = new DistanceCard(DistanceCardType.MILES_200);
+        DistanceCard miles25 = new DistanceCard(DistanceCardType.MILES_25);
+        DistanceCard miles50 = new DistanceCard(DistanceCardType.MILES_50);
+        DistanceCard miles75 = new DistanceCard(DistanceCardType.MILES_75);
+        DistanceCard miles100 = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
 
-        instance.addToDistancePile(card);
-        instance.addToDistancePile(card1);
-        instance.addToDistancePile(card2);
-        instance.addToDistancePile(card3);
-        instance.addToDistancePile(card4);
+        instance.addToDistancePile(miles200);
+        instance.addToDistancePile(miles100);
+        instance.addToDistancePile(miles75);
+        instance.addToDistancePile(miles50);
+        instance.addToDistancePile(miles25);
 
         assertEquals(instance.getDistancePile().size(),5);
     }
 
     @Test
-    public void testAddNullCardToDistancePileShouldReceiveMessage() {
+    public void testTableau_AddNullCardToDistancePile() {
         exception.expect(NullPointerException.class);
         exception.expectMessage("You can\'t add a null value card to the Distance Pile");
-        Tableau instance = new Tableau();
         instance.addToDistancePile(null);
     }
 
     @Test
-    public void testAddThreeMiles200CardsToDistancePileShouldBeFalse() {
-        Tableau instance = new Tableau();
-        DistanceCard card1 = new DistanceCard(DistanceCardType.MILES_200);
-        DistanceCard card2 = new DistanceCard(DistanceCardType.MILES_200);
-        DistanceCard card3 = new DistanceCard(DistanceCardType.MILES_200);
-        instance.addToDistancePile(card1);
-        instance.addToDistancePile(card2);
-        boolean result = instance.addToDistancePile(card3);
-        assertFalse(result);
+    public void testTableau_AddThreeMiles200CardsToDistancePile() {
+        DistanceCard miles200A = new DistanceCard(DistanceCardType.MILES_200);
+        DistanceCard miles200B = new DistanceCard(DistanceCardType.MILES_200);
+        DistanceCard miles200C = new DistanceCard(DistanceCardType.MILES_200);
+        instance.addToDistancePile(miles200A);
+        instance.addToDistancePile(miles200B);
+        assertFalse(instance.addToDistancePile(miles200C));
     }
 
     @Test
-    public void testAddValidSafetyCardToSafetyPile() {
+    public void testTableau_AddValidSafetyCardToSafetyPile() {
         SafetyCard card = new SafetyCard(SafetyCardType.EXTRA_TANK);
-        Tableau instance = new Tableau();
-
         assertTrue(instance.addToSafetyPile(card));
     }
 
     @Test
-    public void testAddNullCardToSafetyPileShouldReceiveMessage() {
-        Tableau instance = new Tableau();
+    public void testTableau_AddNullCardToSafetyPile() {
         exception.expect(NullPointerException.class);
         exception.expectMessage("You can\'t add a null value card to the Safety Pile");
         instance.addToSafetyPile(null);
     }
 
     @Test
-    public void testAddAllValidSafetyCardsToSafetyPile() {
-        Tableau instance = new Tableau();
-
+    public void testTableau_AddAllValidSafetyCardsToSafetyPile() {
         SafetyCard drivingAce = new SafetyCard(SafetyCardType.DRIVING_ACE);
         SafetyCard extraTank = new SafetyCard(SafetyCardType.EXTRA_TANK);
         SafetyCard punctureProof = new SafetyCard(SafetyCardType.PUNCTURE_PROOF);
@@ -121,57 +126,51 @@ public class TableauTest {
         instance.addToSafetyPile(rightOfWay);
 
         assertEquals(instance.getSafetyPile().size(),4);
-
     }
 
     @Test
-    public void testAddValidSpeedCardToSpeedPile() {
+    public void testTableau_AddValidSpeedCardToSpeedPile() {
         SpeedCard card = new SpeedCard(SpeedCardType.END_LIMIT);
-        Tableau instance = new Tableau();
         instance.addToSpeedPile(card);
-        assertEquals(instance.getSpeedPile().size(), 1);
+        int result = instance.getSpeedPile().search(card);
+        assertEquals(result,1);
     }
 
     @Test
-    public void testAddAllValidSpeedCardsToSpeedPile() {
-        Tableau instance = new Tableau();
+    public void testTableau_AddAllValidSpeedCardsToSpeedPile() {
         SpeedCard card = new SpeedCard(SpeedCardType.END_LIMIT);
         SpeedCard card1 = new SpeedCard(SpeedCardType.SPEED_LIMIT);
 
         instance.addToSpeedPile(card);
         instance.addToSpeedPile(card1);
-        
+
         assertEquals(instance.getSpeedPile().size(), 2);
     }
 
     @Test
-    public void testAddNullCardToSpeedPileShouldReceiveMessage() {
-        Tableau instance = new Tableau();
+    public void testTableau_AddNullCardToSpeedPile() {
         exception.expect(NullPointerException.class);
         exception.expectMessage("You can\'t add a null value card to the Speed Pile");
         instance.addToSpeedPile(null);
     }
 
     @Test
-    public void testAddValidBattleCardToBattlePile() {
+    public void testTableau_AddValidBattleCardToBattlePile() {
         BattleCard card = new HazardCard(HazardCardType.ACCIDENT);
-        Tableau instance = new Tableau();
         instance.addToBattlePile(card);
-        assertEquals(instance.getBattlePile().size(),1);
+        int result = instance.getBattlePile().search(card);
+        assertEquals(result,1);
     }
 
     @Test
-    public void testAddNullCardToBattlePileShouldReceiveMesage() {
-        Tableau instance = new Tableau();
+    public void testTableau_AddNullCardToBattlePile() {
         exception.expect(NullPointerException.class);
         exception.expectMessage("You can\'t add a null value card to the Battle Pile");
         instance.addToBattlePile(null);
     }
 
     @Test
-    public void testAddAllValidBattleCardsToBattlePile() {
-        Tableau instance = new Tableau();
-
+    public void testTableau_AddAllValidBattleCardsToBattlePile() {
         HazardCard accident = new HazardCard(HazardCardType.ACCIDENT);
         HazardCard outOfGas = new HazardCard(HazardCardType.OUT_OF_GAS);
         HazardCard flatTire = new HazardCard(HazardCardType.FLAT_TIRE);
@@ -194,14 +193,12 @@ public class TableauTest {
     }
 
     @Test
-    public void testIsRollingBattlePileIsEmptyShouldBeFalse() {
-        Tableau instance = new Tableau();
+    public void testTableau_IsRollingBattlePileIsEmpty() {
         assertFalse(instance.isRolling());
     }
 
     @Test
-    public void testIsRollingBattlePileNotEmptyTopCardNotRollShouldBeFalse() {
-        Tableau instance = new Tableau();
+    public void testTableau_IsRollingBattlePileNotEmptyTopCardNotRoll() {
         BattleCard accident = new HazardCard(HazardCardType.ACCIDENT);
         Stack<BattleCard> battlePile = instance.getBattlePile();
         battlePile.add(accident);
@@ -209,22 +206,19 @@ public class TableauTest {
     }
 
     @Test
-    public void testIsRollingBattlePileNotEmptyTopCardIsRollShouldBeTrue() {
-        Tableau instance = new Tableau();
+    public void testTableau_IsRollingBattlePileNotEmptyTopCardIsRoll() {
         RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
         instance.addToBattlePile(roll);
         assertTrue(instance.isRolling());
     }
 
     @Test
-    public void testHasHazardBattlePileIsEmptyShouldBeFalse() {
-        Tableau instance = new Tableau();
+    public void testTableau_HasHazardBattlePileIsEmpty() {
         assertFalse(instance.hasHazard());
     }
 
     @Test
-    public void testHasHazardBattlePileNotEmptyTopCardIsHazardShouldBeTrue() {
-        Tableau instance = new Tableau();
+    public void testTableau_HasHazardBattlePileNotEmptyTopCardIsHazard() {
         HazardCard stop = new HazardCard(HazardCardType.STOP);
         instance.addToBattlePile(stop);
         Card card = instance.getBattlePileTopCard();
@@ -232,8 +226,7 @@ public class TableauTest {
     }
 
     @Test
-    public void testHasHazardBattlePileNotEmptyTopCardIsNotHazardShouldBeFalse() {
-        Tableau instance = new Tableau();
+    public void testTableau_HasHazardBattlePileNotEmptyTopCardIsNotHazard() {
         RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
         instance.addToBattlePile(roll);
         Card card = instance.getBattlePileTopCard();
@@ -241,22 +234,19 @@ public class TableauTest {
     }
 
     @Test
-    public void testHasSpeedLimitBattlePileIsEmptyShouldBeFalse() {
-        Tableau instance = new Tableau();
+    public void testTableau_HasSpeedLimitSpeedPileIsEmpty() {
         assertFalse(instance.hasSpeedLimit());
     }
 
     @Test
-    public void testHasSpeedLimitBattlePileNotEmptyTopCardIsSpeedLimitShouldBeTrue() {
-        Tableau instance = new Tableau();
+    public void testTableau_HasSpeedLimitSpeedPileNotEmptyTopCardIsSpeedLimit() {
         SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
         instance.addToSpeedPile(speedLimit);
         assertTrue(instance.hasSpeedLimit());
     }
 
     @Test
-    public void testHasSpeedLimitBattlePileNotEmptyTopCardIsNotSpeedLimitShouldBeFalse() {
-        Tableau instance = new Tableau();
+    public void testTableau_HasSpeedLimitSpeedPileNotEmptyTopCardIsNotSpeedLimit() {
         SpeedCard endLimit = new SpeedCard(SpeedCardType.END_LIMIT);
         instance.addToSpeedPile(endLimit);
         assertFalse(instance.hasSpeedLimit());

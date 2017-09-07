@@ -28,7 +28,7 @@ public class Hand {
         }
     }
 
-    public List<Card> getHand() {
+    public List<Card> getList() {
         return hand;
     }
 
@@ -37,6 +37,10 @@ public class Hand {
         for (Card card : hand) {
             System.out.println("[" + index++ + "] " + card.getType());
         }
+    }
+
+    public void clear() {
+        hand.clear();
     }
 
 }

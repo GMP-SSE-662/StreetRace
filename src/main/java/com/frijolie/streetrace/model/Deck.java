@@ -1,19 +1,20 @@
 package com.frijolie.streetrace.model;
 
+import com.frijolie.streetrace.model.cards.Card;
+import com.frijolie.streetrace.model.cards.DistanceCard;
+import com.frijolie.streetrace.model.cards.DistanceCardType;
+import com.frijolie.streetrace.model.cards.HazardCard;
+import com.frijolie.streetrace.model.cards.HazardCardType;
+import com.frijolie.streetrace.model.cards.RemedyCard;
+import com.frijolie.streetrace.model.cards.RemedyCardType;
 import com.frijolie.streetrace.model.cards.SafetyCard;
 import com.frijolie.streetrace.model.cards.SafetyCardType;
 import com.frijolie.streetrace.model.cards.SpeedCard;
-import com.frijolie.streetrace.model.cards.HazardCardType;
-import com.frijolie.streetrace.model.cards.Card;
-import com.frijolie.streetrace.model.cards.DistanceCardType;
-import com.frijolie.streetrace.model.cards.DistanceCard;
-import com.frijolie.streetrace.model.cards.HazardCard;
-import com.frijolie.streetrace.model.cards.RemedyCardType;
 import com.frijolie.streetrace.model.cards.SpeedCardType;
-import com.frijolie.streetrace.model.cards.RemedyCard;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import jdk.nashorn.internal.ir.annotations.Immutable;
 
 public class Deck {
 
@@ -22,6 +23,7 @@ public class Deck {
     public Deck() {
         deck = new ArrayList<>();
         populate();
+        shuffle(5);
     }
 
     public void populate() {
@@ -69,6 +71,11 @@ public class Deck {
 
     }
 
+    public void reset() {
+        deck.clear();
+        populate();
+    }
+
     public void shuffle() {
         Collections.shuffle(deck);
     }
@@ -85,8 +92,13 @@ public class Deck {
         }
     }
 
-    public List<Card> getDeck() {
-        return deck;
+    @Immutable
+    public List<Card> getList() {
+        return Collections.unmodifiableList(deck);
+    }
+
+    public void clear() {
+        deck.clear();
     }
 
 }

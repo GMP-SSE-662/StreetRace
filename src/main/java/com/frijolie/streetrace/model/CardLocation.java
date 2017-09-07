@@ -1,0 +1,17 @@
+package com.frijolie.streetrace.model;
+
+public enum CardLocation {
+    PLAYER_HAND,
+    PLAYER_DISTANCE_PILE,
+    PLAYER_SPEED_PILE,
+    PLAYER_SAFETY_PILE,
+    PLAYER_BATTLE_PILE,
+    COMPUTER_HAND,
+    COMPUTER_DISTANCE_PILE,
+    COMPUTER_SPEED_PILE,
+    COMPUTER_SAFETY_PILE,
+    COMPUTER_BATTLE_PILE,
+    DRAW_PILE,
+    DISCARD_PILE,
+    UNKNOWN;
+}

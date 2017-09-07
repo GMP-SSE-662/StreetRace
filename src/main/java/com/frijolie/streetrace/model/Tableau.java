@@ -130,4 +130,11 @@ public class Tableau {
         return battlePile.peek();
     }
 
+    public void clear() {
+        distancePile.clear();
+        safetyPile.clear();
+        speedPile.clear();
+        battlePile.clear();
+    }
+
 }

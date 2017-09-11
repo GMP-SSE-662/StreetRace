@@ -127,7 +127,7 @@ public class StreetRaceGame implements StreetRaceGameHelper {
         return null;
     }
 
-    public CardLocation find(Card card) {
+    public CardLocation getLocation(Card card) {
 
         if (playerHand.getList().contains(card)) {
             return CardLocation.PLAYER_HAND;
@@ -151,7 +151,7 @@ public class StreetRaceGame implements StreetRaceGameHelper {
             return CardLocation.COMPUTER_BATTLE_PILE;
         } else if (discardPile.contains(card)) {
             return CardLocation.DISCARD_PILE;
-        } else if (deck.getList().contains(card)) {
+        } else if (drawPile.contains(card)) {
             return CardLocation.DRAW_PILE;
         } else {
             return CardLocation.UNKNOWN;

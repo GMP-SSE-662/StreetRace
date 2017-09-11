@@ -2,8 +2,12 @@ package com.frijolie.streetrace.model;
 
 import com.frijolie.streetrace.model.cards.BattleCard;
 import com.frijolie.streetrace.model.cards.Card;
+import com.frijolie.streetrace.model.cards.DistanceCard;
+import com.frijolie.streetrace.model.cards.DistanceCardType;
 import com.frijolie.streetrace.model.cards.HazardCard;
 import com.frijolie.streetrace.model.cards.HazardCardType;
+import com.frijolie.streetrace.model.cards.SafetyCard;
+import com.frijolie.streetrace.model.cards.SafetyCardType;
 import com.frijolie.streetrace.model.cards.SpeedCard;
 import com.frijolie.streetrace.model.cards.SpeedCardType;
 import java.util.List;
@@ -16,10 +20,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- *
- * @author LB8942
- */
 public class StreetRaceGameTest {
 
     StreetRaceGame game;
@@ -147,15 +147,11 @@ public class StreetRaceGameTest {
     @Test
     public void testStreetRaceGame_PlayerHandContainsSevenCardsAfterDeal() {
         assertEquals(playerHand.size(), 7);
-//        System.out.println("\n----- Player Hand -----");
-//        game.getPlayerHand().displayHand();
     }
 
     @Test
     public void testStreetRaceGame_ComputerHandContainsSevenCardsAfterDeal() {
         assertEquals(computerHand.size(), 7);
-//        System.out.println("\n----- Computer Hand -----");
-//        game.getComputerHand().displayHand();
     }
 
     @Test
@@ -173,6 +169,14 @@ public class StreetRaceGameTest {
     }
 
     @Test
+    public void testStreetRaceGame_ComputerSpeedPileTopCardTrue() {
+        computerTableau.getSpeedPile().clear();
+        SpeedCard speedLimit = new SpeedCard(SpeedCardType.END_LIMIT);
+        computerTableau.addToSpeedPile(speedLimit);
+        assertEquals(game.speedPileTopCard(computer),speedLimit);
+    }
+
+    @Test
     public void testStreetRaceGame_PlayerSpeedPileTopCardFalse() {
         playerTableau.getSpeedPile().clear();
         SpeedCard speedLimit = new SpeedCard(SpeedCardType.END_LIMIT);
@@ -183,11 +187,29 @@ public class StreetRaceGameTest {
     }
 
     @Test
+    public void testStreetRaceGame_ComputerSpeedPileTopCardFalse() {
+        computerTableau.getSpeedPile().clear();
+        SpeedCard speedLimit = new SpeedCard(SpeedCardType.END_LIMIT);
+        SpeedCard endLimit = new SpeedCard(SpeedCardType.END_LIMIT);
+        computerTableau.addToSpeedPile(speedLimit);
+        computerTableau.addToSpeedPile(endLimit);
+        assertFalse(game.speedPileTopCard(computer) == speedLimit);
+    }
+
+    @Test
     public void testStreetRaceGame_PlayerBattlePileTopCardTrue() {
         playerTableau.getBattlePile().clear();
         BattleCard stop = new HazardCard(HazardCardType.STOP);
         playerTableau.addToBattlePile(stop);
         assertEquals(playerTableau.getBattlePileTopCard(),stop);
+    }
+
+    @Test
+    public void testStreetRaceGame_ComputerBattlePileTopCardTrue() {
+        computerTableau.getBattlePile().clear();
+        BattleCard stop = new HazardCard(HazardCardType.STOP);
+        computerTableau.addToBattlePile(stop);
+        assertEquals(computerTableau.getBattlePileTopCard(),stop);
     }
 
     @Test
@@ -200,11 +222,112 @@ public class StreetRaceGameTest {
     }
 
     @Test
+    public void testStreetRaceGame_ComputerBattlePileTopCardFalse() {
+        computerTableau.getBattlePile().clear();
+        BattleCard stop = new HazardCard(HazardCardType.STOP);
+        BattleCard outOfGas = new HazardCard(HazardCardType.OUT_OF_GAS);
+        computerTableau.addToBattlePile(stop);
+        assertFalse(game.battlePileTopCard(computer) == outOfGas);
+    }
+
+    @Test
+    public void testStreetRaceGame_CardLocationPlayerHand() {
+        playerHand.clear();
+        BattleCard stop = new HazardCard(HazardCardType.STOP);
+        game.getPlayer().getHand().addCard(stop);
+        assertTrue(game.getLocation(stop) == CardLocation.PLAYER_HAND);
+    }
+
+    @Test
+    public void testStreetRaceGame_CardLocationPlayerDistancePile() {
+        playerTableau.getDistancePile().clear();
+        DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
+        playerTableau.addToDistancePile(miles200);
+        assertTrue(game.getLocation(miles200) == CardLocation.PLAYER_DISTANCE_PILE);
+    }
+
+    @Test
+    public void testStreetRaceGame_CardLocationPlayerSpeedPile() {
+        playerTableau.getDistancePile().clear();
+        SpeedCard endLimit = new SpeedCard(SpeedCardType.END_LIMIT);
+        playerTableau.addToSpeedPile(endLimit);
+        assertTrue(game.getLocation(endLimit) == CardLocation.PLAYER_SPEED_PILE);
+    }
+
+    @Test
+    public void testStreetRaceGame_CardLocationPlayerSafetyPile() {
+        playerTableau.getSafetyPile().clear();
+        SafetyCard extraTank = new SafetyCard(SafetyCardType.EXTRA_TANK);
+        playerTableau.addToSafetyPile(extraTank);
+        assertTrue(game.getLocation(extraTank) == CardLocation.PLAYER_SAFETY_PILE);
+    }
+
+    @Test
+    public void testStreetRaceGame_CardLocationPlayerBattlePile() {
+        playerTableau.getBattlePile().clear();
+        BattleCard outOfGas = new HazardCard(HazardCardType.OUT_OF_GAS);
+        playerTableau.addToBattlePile(outOfGas);
+        assertTrue(game.getLocation(outOfGas) == CardLocation.PLAYER_BATTLE_PILE);
+    }
+
+    @Test
+    public void testStreetRaceGame_CardLocationComputerHand() {
+        computerHand.clear();
+        SafetyCard extraTank = new SafetyCard(SafetyCardType.EXTRA_TANK);
+        computerHand.add(extraTank);
+        assertTrue(game.getLocation(extraTank) == CardLocation.COMPUTER_HAND);
+    }
+
+    @Test
+    public void testStreetRaceGame_CardLocationComputerDistancePile() {
+        computerTableau.getDistancePile().clear();
+        DistanceCard miles25 = new DistanceCard(DistanceCardType.MILES_25);
+        computerTableau.addToDistancePile(miles25);
+        assertTrue(game.getLocation(miles25) == CardLocation.COMPUTER_DISTANCE_PILE);
+    }
+
+    @Test
+    public void testStreetRaceGame_CardLocationComputerSpeedPile() {
+        computerTableau.getDistancePile().clear();
+        SpeedCard endLimit = new SpeedCard(SpeedCardType.END_LIMIT);
+        computerTableau.addToSpeedPile(endLimit);
+        assertTrue(game.getLocation(endLimit) == CardLocation.COMPUTER_SPEED_PILE);
+    }
+
+    @Test
+    public void testStreetRaceGame_CardLocationComputerSafetyPile() {
+        computerTableau.getSafetyPile().clear();
+        SafetyCard extraTank = new SafetyCard(SafetyCardType.EXTRA_TANK);
+        computerTableau.addToSafetyPile(extraTank);
+        assertTrue(game.getLocation(extraTank) == CardLocation.COMPUTER_SAFETY_PILE);
+    }
+
+    @Test
+    public void testStreetRaceGame_CardLocationComputerBattlePile() {
+        computerTableau.getBattlePile().clear();
+        BattleCard outOfGas = new HazardCard(HazardCardType.OUT_OF_GAS);
+        computerTableau.addToBattlePile(outOfGas);
+        assertTrue(game.getLocation(outOfGas) == CardLocation.COMPUTER_BATTLE_PILE);
+    }
+
+    @Test
+    public void testeStreetRaceGame_CardLocationDrawPile() {
+        drawPile.clear();
+        BattleCard outOfGas = new HazardCard(HazardCardType.OUT_OF_GAS);
+        SafetyCard extraTank = new SafetyCard(SafetyCardType.EXTRA_TANK);
+        SpeedCard endLimit = new SpeedCard(SpeedCardType.END_LIMIT);
+        drawPile.push(outOfGas);
+        drawPile.push(extraTank);
+        drawPile.push(endLimit);
+        assertTrue(game.getLocation(outOfGas) == CardLocation.DRAW_PILE);
+    }
+
+    @Test
     public void testStreetRaceGame_CardLocationDiscardPile() {
         discardPile.clear();
         BattleCard stop = new HazardCard(HazardCardType.STOP);
         game.addToDiscardPile(stop);
-        assertTrue(game.find(stop) == CardLocation.DISCARD_PILE);
+        assertTrue(game.getLocation(stop) == CardLocation.DISCARD_PILE);
     }
 
 }

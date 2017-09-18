@@ -6,6 +6,8 @@ import com.frijolie.streetrace.model.cards.DistanceCard;
 import com.frijolie.streetrace.model.cards.DistanceCardType;
 import com.frijolie.streetrace.model.cards.HazardCard;
 import com.frijolie.streetrace.model.cards.HazardCardType;
+import com.frijolie.streetrace.model.cards.RemedyCard;
+import com.frijolie.streetrace.model.cards.RemedyCardType;
 import com.frijolie.streetrace.model.cards.SafetyCard;
 import com.frijolie.streetrace.model.cards.SafetyCardType;
 import com.frijolie.streetrace.model.cards.SpeedCard;
@@ -32,6 +34,8 @@ public class StreetRaceGameTest {
     Deck deck;
     Stack<Card> drawPile;
     Stack<Card> discardPile;
+    Stack<Card> playerSpeedPile;
+    Stack<Card> computerSpeedPile;
 
     @Before
     public void setUp() {
@@ -45,6 +49,8 @@ public class StreetRaceGameTest {
         deck = game.getDeck();
         drawPile = game.getDrawPile();
         discardPile = game.getDiscardPile();
+        playerSpeedPile = playerTableau.getSpeedPile();
+        computerSpeedPile = computerTableau.getSpeedPile();
         game.startGame();
     }
 
@@ -55,6 +61,8 @@ public class StreetRaceGameTest {
         computer = null;
         playerHand = null;
         computerHand = null;
+        playerTableau.clear();
+        computerTableau.clear();
         playerTableau = null;
         computerTableau = null;
         deck = null;
@@ -64,42 +72,42 @@ public class StreetRaceGameTest {
 
     @Test
     public void testStreetRaceGame_GetGameInstance() {
-        assertNotNull(game);
+        assertNotNull("game.getInstance() is null", game);
     }
 
     @Test
     public void testStreetRaceGame_PlayerHandNotNull() {
-        assertNotNull(playerHand);
+        assertNotNull("playerHand is null", playerHand);
     }
 
     @Test
     public void testStreetRaceGame_ComputerHandNotNull() {
-        assertNotNull(computerHand);
+        assertNotNull("computerHand is null", computerHand);
     }
 
     @Test
     public void testStreetRaceGame_DeckNotNull() {
-        assertNotNull(deck);
+        assertNotNull("deck is null", deck);
     }
 
     @Test
     public void testStreetRaceGame_PlayerTableauNotNull() {
-        assertNotNull(playerTableau);
+        assertNotNull("playerTableau is null", playerTableau);
     }
 
     @Test
     public void testStreetRaceGame_ComputerTableauNotNull() {
-        assertNotNull(computerTableau);
+        assertNotNull("computerTableau is null", computerTableau);
     }
 
     @Test
     public void testStreetRaceGame_DiscardPileNotNull() {
-        assertNotNull(discardPile);
+        assertNotNull("discardPile is null", discardPile);
     }
 
     @Test
     public void testStreetRaceGame_DrawPileNotNull() {
-        assertNotNull(drawPile);
+        assertNotNull("drawPile is null", drawPile);
     }
 
     @Test
@@ -330,4 +338,234 @@ public class StreetRaceGameTest {
         assertTrue(game.getLocation(stop) == CardLocation.DISCARD_PILE);
     }
 
+    @Test
+    public void testStreetRaceGame_CalculateTotalMilesEquals975() {
+        DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
+        DistanceCard miles200b = new DistanceCard(DistanceCardType.MILES_200);
+        DistanceCard miles100 = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100b = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100c = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100d = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100e = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles75 = new DistanceCard(DistanceCardType.MILES_75);
+        player.getTableau().addToDistancePile(miles200);
+        player.getTableau().addToDistancePile(miles200b);
+        player.getTableau().addToDistancePile(miles100);
+        player.getTableau().addToDistancePile(miles100b);
+        player.getTableau().addToDistancePile(miles100c);
+        player.getTableau().addToDistancePile(miles100d);
+        player.getTableau().addToDistancePile(miles100e);
+        player.getTableau().addToDistancePile(miles75);
+        assertEquals(player.getTableau().calculateTotalMiles(),975);
+    }
+
+    @Test
+    public void testStreetRaceGame_CanMoveHereComputerDistanceCard() {
+        DistanceCard miles25 = new DistanceCard(DistanceCardType.MILES_25);
+        assertTrue(game.canMoveHere(computer,miles25,CardLocation.COMPUTER_DISTANCE_PILE) );
+    }
+
+    @Test
+    public void testStreetRaceGame_CanMoveHereComputerSpeedCardEndLimit() {
+        SpeedCard endLimit = new SpeedCard(SpeedCardType.END_LIMIT);
+        assertTrue(game.canMoveHere(computer, endLimit, CardLocation.COMPUTER_SPEED_PILE));
+    }
+
+    @Test
+    public void testStreetRaceGame_CanMoveHereComputerSpeedCardSpeedLimit() {
+        SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        assertTrue(game.canMoveHere(computer, speedLimit,CardLocation.PLAYER_SPEED_PILE));
+    }
+
+    @Test
+    public void testStreetRaceGame_CanMoveHereComputerSpeedCardSpeedLimitComputerPile() {
+        SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        assertFalse(game.canMoveHere(computer, speedLimit,CardLocation.COMPUTER_SPEED_PILE));
+    }
+
+    @Test
+    public void testStreetRaceGame_CanMoveHereComputerRemedyCard() {
+        RemedyCard repair = new RemedyCard(RemedyCardType.REPAIR);
+        assertTrue(game.canMoveHere(computer, repair, CardLocation.COMPUTER_BATTLE_PILE));
+    }
+
+    @Test
+    public void testStreetRaceGame_CanMoveHereComputerHazardCard() {
+        HazardCard accident = new HazardCard(HazardCardType.ACCIDENT);
+        assertTrue(game.canMoveHere(computer, accident, CardLocation.PLAYER_BATTLE_PILE));
+    }
+
+    @Test
+    public void testStreetRaceGame_CanMoveHereComputerHazardCardPlayerBattlePile() {
+        HazardCard accident = new HazardCard(HazardCardType.ACCIDENT);
+        assertFalse(game.canMoveHere(computer, accident, CardLocation.COMPUTER_BATTLE_PILE));
+    }
+
+    @Test
+    public void testStreetRaceGame_CanMoveHereComputerSafetyCard() {
+        SafetyCard punctureProof = new SafetyCard(SafetyCardType.PUNCTURE_PROOF);
+        assertTrue(game.canMoveHere(computer, punctureProof, CardLocation.COMPUTER_SAFETY_PILE));
+    }
+
+    @Test
+    public void testStreetRaceGame_CanMoveHereDrawPile() {
+        SafetyCard punctureProof = new SafetyCard(SafetyCardType.PUNCTURE_PROOF);
+        assertFalse(game.canMoveHere(computer, punctureProof, CardLocation.DRAW_PILE));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingNoLimitMiles25() {
+        DistanceCard miles25 = new DistanceCard(DistanceCardType.MILES_25);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        playerTableau.addToBattlePile(roll);
+        assertTrue(game.isValidMove(player, miles25));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingNoLimitMiles50() {
+        DistanceCard miles50 = new DistanceCard(DistanceCardType.MILES_50);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        playerTableau.addToBattlePile(roll);
+        assertTrue(game.isValidMove(player,miles50));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingNoLimitMiles75() {
+        DistanceCard miles75 = new DistanceCard(DistanceCardType.MILES_75);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getTableau().addToBattlePile(roll);
+        assertTrue(game.isValidMove(player,miles75));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingNoLimitMiles100() {
+        DistanceCard miles100 = new DistanceCard(DistanceCardType.MILES_100);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getTableau().addToBattlePile(roll);
+        assertTrue(game.isValidMove(player,miles100));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingNoLimitMiles200() {
+        DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getTableau().addToBattlePile(roll);
+        assertTrue(game.isValidMove(player,miles200));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingSpeedLimitMiles25() {
+        DistanceCard miles25 = new DistanceCard(DistanceCardType.MILES_25);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        player.getTableau().addToBattlePile(roll);
+        player.getTableau().addToSpeedPile(speedLimit);
+        assertTrue(game.isValidMove(player, miles25));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingSpeedLimitMiles50() {
+        DistanceCard miles50 = new DistanceCard(DistanceCardType.MILES_50);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        player.getTableau().addToBattlePile(roll);
+        player.getTableau().addToSpeedPile(speedLimit);
+        assertTrue(game.isValidMove(player, miles50));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingSpeedLimitMiles75() {
+        DistanceCard miles75 = new DistanceCard(DistanceCardType.MILES_75);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        player.getTableau().addToBattlePile(roll);
+        player.getTableau().addToSpeedPile(speedLimit);
+        assertFalse(game.isValidMove(player, miles75));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingSpeedLimitMiles100() {
+        DistanceCard miles100 = new DistanceCard(DistanceCardType.MILES_100);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        player.getTableau().addToBattlePile(roll);
+        player.getTableau().addToSpeedPile(speedLimit);
+        assertFalse(game.isValidMove(player, miles100));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingSpeedLimitMiles200() {
+        DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        player.getTableau().addToBattlePile(roll);
+        player.getTableau().addToSpeedPile(speedLimit);
+        assertFalse(game.isValidMove(player, miles200));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingNoLimitTwoMiles200() {
+        DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getTableau().addToBattlePile(roll);
+        player.getTableau().addPlayed200s();
+        player.getTableau().addPlayed200s();
+        assertFalse(game.isValidMove(player, miles200));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingMileLimitExceededMiles50() {
+        DistanceCard miles50 = new DistanceCard(DistanceCardType.MILES_50);
+        DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
+        DistanceCard miles200b = new DistanceCard(DistanceCardType.MILES_200);
+        DistanceCard miles100 = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100b = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100c = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100d = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100e = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles75 = new DistanceCard(DistanceCardType.MILES_75);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getTableau().addToBattlePile(roll);
+        player.getTableau().addToDistancePile(miles200);
+        player.getTableau().addToDistancePile(miles200b);
+        player.getTableau().addToDistancePile(miles100);
+        player.getTableau().addToDistancePile(miles100b);
+        player.getTableau().addToDistancePile(miles100c);
+        player.getTableau().addToDistancePile(miles100d);
+        player.getTableau().addToDistancePile(miles100e);
+        player.getTableau().addToDistancePile(miles75);
+        player.getTableau().calculateTotalMiles();
+        assertFalse(game.isValidMove(player, miles50));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingMileLimitExceededMiles75() {
+        DistanceCard miles75 = new DistanceCard(DistanceCardType.MILES_75);
+        DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
+        DistanceCard miles200b = new DistanceCard(DistanceCardType.MILES_200);
+        DistanceCard miles100 = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100b = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100c = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100d = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100e = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles75b = new DistanceCard(DistanceCardType.MILES_75);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getTableau().addToBattlePile(roll);
+        player.getTableau().addToDistancePile(miles200);
+        player.getTableau().addToDistancePile(miles200b);
+        player.getTableau().addToDistancePile(miles100);
+        player.getTableau().addToDistancePile(miles100b);
+        player.getTableau().addToDistancePile(miles100c);
+        player.getTableau().addToDistancePile(miles100d);
+        player.getTableau().addToDistancePile(miles100e);
+        player.getTableau().addToDistancePile(miles75);
+        player.getTableau().calculateTotalMiles();
+        assertFalse(game.isValidMove(player, miles75b));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardNotRolling() {
+        DistanceCard miles75 = new DistanceCard(DistanceCardType.MILES_75);
+        assertFalse(game.isValidMove(player, miles75));
+    }
 }

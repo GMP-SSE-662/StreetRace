@@ -1,7 +1,16 @@
 package com.frijolie.streetrace.model;
 
 import com.frijolie.streetrace.model.cards.Card;
+import com.frijolie.streetrace.model.cards.DistanceCard;
+import com.frijolie.streetrace.model.cards.DistanceCardType;
+import com.frijolie.streetrace.model.cards.HazardCard;
+import com.frijolie.streetrace.model.cards.RemedyCard;
+import com.frijolie.streetrace.model.cards.SafetyCard;
+import com.frijolie.streetrace.model.cards.SafetyCardType;
+import com.frijolie.streetrace.model.cards.SpeedCard;
+import com.frijolie.streetrace.model.cards.SpeedCardType;
 import com.frijolie.streetrace.model.moves.Move;
+import java.util.List;
 import java.util.Objects;
 import java.util.Stack;
 
@@ -23,6 +32,7 @@ public class StreetRaceGame implements StreetRaceGameHelper {
     private final Hand playerHand;
     private final Hand computerHand;
     private CardLocation location;
+    private final int MILE_LIMIT = 1000;
 
     private StreetRaceGame() {
         moves = new Stack<>();
@@ -87,8 +97,7 @@ public class StreetRaceGame implements StreetRaceGameHelper {
         if(speedPile.isEmpty()) {
             return null;
         } else {
-            Card card = speedPile.peek();
-            return card;
+            return speedPile.peek();
         }
     }
 
@@ -98,14 +107,129 @@ public class StreetRaceGame implements StreetRaceGameHelper {
         if(battlePile.isEmpty()) {
             return null;
         } else {
-            Card card = player.getTableau().getBattlePile().peek();
-            return card;
+            return player.getTableau().getBattlePile().peek();
         }
     }
 
-    @Override
-    public boolean isValidMove() {
-        // TODO
+    public boolean isValidMove(Player player, Card card) {
+        if (card instanceof DistanceCard) {
+            if (player.getTableau().isRolling()) {
+                // player is rolling
+                if (player.getTableau().getTotalMiles() + card.getType().getValue() <= MILE_LIMIT) {
+                    // card value + totalMiles cannot exceed MILE_LIMIT
+                    if (player.getTableau().hasSpeedLimit()) {
+                        // player has speed limit, can only play mile25 and miles50
+                        if (card.getType() == DistanceCardType.MILES_25 ||
+                                card.getType() == DistanceCardType.MILES_50) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        // player is rolling, does not have a speed limit
+                        if (card.getType() == DistanceCardType.MILES_200) {
+                            // cannot play more than 2 miles200 cards in a game
+                            if(player.getTableau().getPlayed200s() < 2) {
+                                player.getTableau().addPlayed200s();
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        } else {
+                            return true;
+                        }
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                // player is not rolling, cannot play a distance card
+                return false;
+            }
+        } else if (card instanceof SpeedCard) {
+            if (card.getType() == SpeedCardType.END_LIMIT) {
+                if (player.getTableau().hasSpeedLimit()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (card.getType() == SpeedCardType.SPEED_LIMIT) {
+                if (player.getOpponentTableau().getBattlePile().isEmpty()) {
+                    return true;
+                } else if (player.getOpponentTableau().getSpeedPile().peek().getType() == SpeedCardType.END_LIMIT ||
+                        player.getOpponentTableau().getSpeedPile().isEmpty()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } else if (card instanceof SafetyCard) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean canMoveHere(Player player, Card card, CardLocation destination) {
+        card = Objects.requireNonNull(card);
+        destination = Objects.requireNonNull(destination);
+        player = Objects.requireNonNull(player);
+
+        if (player == computer) {
+            if (card instanceof DistanceCard) {
+                return destination == CardLocation.COMPUTER_DISTANCE_PILE;
+            } else if (card instanceof SpeedCard) {
+                if (card.getType() == SpeedCardType.END_LIMIT) {
+                    // end limit cards are played on your speed pile
+                    return destination == CardLocation.COMPUTER_SPEED_PILE;
+                } else if (card.getType() == SpeedCardType.SPEED_LIMIT) {
+                    // speed limit cards are played on your opponents speed pile
+                    return destination == CardLocation.PLAYER_SPEED_PILE;
+                }
+            } else if (card instanceof RemedyCard) {
+                // remedy cards are played on your tableau
+                return destination == CardLocation.COMPUTER_BATTLE_PILE;
+            } else if (card instanceof HazardCard) {
+                // hazard cards are played on your opponents tableau
+                return destination == CardLocation.PLAYER_BATTLE_PILE;
+            } else if (card instanceof SafetyCard) {
+                return destination == CardLocation.COMPUTER_SAFETY_PILE;
+            } else if (destination == CardLocation.DRAW_PILE) {
+                return false;
+            } else if (destination == CardLocation.DISCARD_PILE) {
+                return true;
+            } else if (destination == CardLocation.COMPUTER_HAND) {
+                return false;
+            }
+        } else if (player == this.player) {
+            if (card instanceof DistanceCard) {
+                return destination == CardLocation.PLAYER_DISTANCE_PILE;
+            } else if (card instanceof SpeedCard) {
+                if (card.getType() == SpeedCardType.END_LIMIT) {
+                    // end limit cards are played on your speed pile
+                    return destination == CardLocation.PLAYER_SPEED_PILE;
+                } else if (card.getType() == SpeedCardType.SPEED_LIMIT) {
+                    // speed limit cards are played on your opponents speed pile
+                    return destination == CardLocation.COMPUTER_SPEED_PILE;
+                }
+            } else if (card instanceof RemedyCard) {
+                // remedy cards are played on your tableau
+                return destination == CardLocation.PLAYER_BATTLE_PILE;
+            } else if (card instanceof HazardCard) {
+                // hazard cards are played on your opponents tableau
+                return destination == CardLocation.COMPUTER_BATTLE_PILE;
+            } else if (card instanceof SafetyCard) {
+                return destination == CardLocation.COMPUTER_SAFETY_PILE;
+            } else if (destination == CardLocation.DRAW_PILE) {
+                return false;
+            } else if (destination == CardLocation.DISCARD_PILE) {
+                return true;
+            } else if (destination == CardLocation.PLAYER_HAND) {
+                return false;
+            }
+        }
+        // don't know how this could ever be reached...
+        // the IDE is complaining so here it is...
+        System.err.println("Player must be equal to neither \'computer\' or \'player\'");
         return false;
     }
 
@@ -125,6 +249,16 @@ public class StreetRaceGame implements StreetRaceGameHelper {
     public Move getPlayOnSelfMove() {
         // TODO
         return null;
+    }
+
+    public boolean safetyPileContains(Player player, SafetyCardType type) {
+        List<SafetyCard> safetyPile = player.getTableau().getSafetyPile();
+        for (SafetyCard card : safetyPile) {
+            if (card.getType() == type) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public CardLocation getLocation(Card card) {

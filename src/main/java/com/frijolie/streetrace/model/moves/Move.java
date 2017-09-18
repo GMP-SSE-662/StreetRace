@@ -6,4 +6,6 @@ public interface Move {
 
     public void undo();
 
+    public boolean isValid();
+
 }

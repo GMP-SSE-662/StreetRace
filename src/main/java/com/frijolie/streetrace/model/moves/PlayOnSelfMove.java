@@ -3,6 +3,11 @@ package com.frijolie.streetrace.model.moves;
 public class PlayOnSelfMove implements Move {
 
     @Override
+    public boolean isValid() {
+        return false;
+    }
+
+    @Override
     public void perform() {
         // TODO take from hand place it in a valid pile on playerTableau
     }

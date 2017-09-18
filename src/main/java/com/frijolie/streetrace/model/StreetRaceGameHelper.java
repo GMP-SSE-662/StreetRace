@@ -11,8 +11,6 @@ public interface StreetRaceGameHelper {
 
     public Card battlePileTopCard(Player player);
 
-    public boolean isValidMove();
-
     public Move getDiscardMove();
 
     public Move getPlayOnOpponentMove();

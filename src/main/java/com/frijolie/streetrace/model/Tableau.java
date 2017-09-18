@@ -36,6 +36,7 @@ public class Tableau {
         for (DistanceCard distanceCard : distancePile) {
             miles += distanceCard.getType().getValue();
         }
+        totalMiles = miles;
         return miles;
     }
 
@@ -74,6 +75,10 @@ public class Tableau {
         // and ROLL cards
         battlePile.push(Objects.requireNonNull(card,
             "You can\'t add a null value card to the Battle Pile"));
+    }
+
+    public void addPlayed200s() {
+        played200s++;
     }
 
     public boolean isRolling() {
@@ -135,6 +140,8 @@ public class Tableau {
         safetyPile.clear();
         speedPile.clear();
         battlePile.clear();
+        played200s = 0;
+        totalMiles = 0;
     }
 
 }

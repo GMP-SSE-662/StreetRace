@@ -1,10 +1,13 @@
 package com.frijolie.streetrace.model;
 
+import com.frijolie.streetrace.model.cards.BattleCard;
 import com.frijolie.streetrace.model.cards.Card;
 import com.frijolie.streetrace.model.cards.DistanceCard;
 import com.frijolie.streetrace.model.cards.DistanceCardType;
 import com.frijolie.streetrace.model.cards.HazardCard;
+import com.frijolie.streetrace.model.cards.HazardCardType;
 import com.frijolie.streetrace.model.cards.RemedyCard;
+import com.frijolie.streetrace.model.cards.RemedyCardType;
 import com.frijolie.streetrace.model.cards.SafetyCard;
 import com.frijolie.streetrace.model.cards.SafetyCardType;
 import com.frijolie.streetrace.model.cards.SpeedCard;
@@ -112,61 +115,149 @@ public class StreetRaceGame implements StreetRaceGameHelper {
     }
 
     public boolean isValidMove(Player player, Card card) {
+        boolean validMove = false;
         if (card instanceof DistanceCard) {
-            if (player.getTableau().isRolling()) {
-                // player is rolling
-                if (player.getTableau().getTotalMiles() + card.getType().getValue() <= MILE_LIMIT) {
-                    // card value + totalMiles cannot exceed MILE_LIMIT
-                    if (player.getTableau().hasSpeedLimit()) {
-                        // player has speed limit, can only play mile25 and miles50
-                        if (card.getType() == DistanceCardType.MILES_25 ||
-                                card.getType() == DistanceCardType.MILES_50) {
-                            return true;
-                        } else {
-                            return false;
-                        }
+            validMove = checkValidDistanceCardMoves(player, card);
+        } else if (card instanceof SpeedCard) {
+            validMove = checkValidSpeedCardMoves(player, card);
+        } else if (card instanceof SafetyCard) {
+            validMove = true;
+        } else if (card instanceof BattleCard) {
+            validMove = checkValidBattleCardMoves(player, card);
+        }
+        return validMove;
+    }
+
+    public boolean checkValidDistanceCardMoves(Player player, Card card) {
+        boolean validMove = false;
+        if (player.getTableau().isRolling()) {
+            if (player.getTableau().getTotalMiles() + card.getType().getValue() <= MILE_LIMIT) {
+                if (player.getTableau().hasSpeedLimit()) {
+                    if (card.getType() == DistanceCardType.MILES_25) {
+                        validMove = true;
+                    } else if (card.getType() == DistanceCardType.MILES_50) {
+                        validMove = true;
                     } else {
-                        // player is rolling, does not have a speed limit
-                        if (card.getType() == DistanceCardType.MILES_200) {
-                            // cannot play more than 2 miles200 cards in a game
-                            if(player.getTableau().getPlayed200s() < 2) {
-                                player.getTableau().addPlayed200s();
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        } else {
-                            return true;
-                        }
+                        validMove = false;
                     }
+                } else if (card.getType() == DistanceCardType.MILES_200) {
+                        if (player.getTableau().getPlayed200s() < 2) {
+                            player.getTableau().addPlayed200s();
+                            validMove = true;
+                        } else {
+                            validMove = false;
+                        }
                 } else {
-                    return false;
+                    validMove = true;
                 }
             } else {
-                // player is not rolling, cannot play a distance card
-                return false;
+                validMove = false;
             }
-        } else if (card instanceof SpeedCard) {
-            if (card.getType() == SpeedCardType.END_LIMIT) {
-                if (player.getTableau().hasSpeedLimit()) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else if (card.getType() == SpeedCardType.SPEED_LIMIT) {
-                if (player.getOpponentTableau().getBattlePile().isEmpty()) {
-                    return true;
-                } else if (player.getOpponentTableau().getSpeedPile().peek().getType() == SpeedCardType.END_LIMIT ||
-                        player.getOpponentTableau().getSpeedPile().isEmpty()) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        } else if (card instanceof SafetyCard) {
-            return true;
+        } else {
+            validMove = false;
         }
-        return false;
+        return validMove;
+    }
+
+    public boolean checkValidSpeedCardMoves(Player player, Card card) {
+        boolean validMove = false;
+        if (card.getType() == SpeedCardType.END_LIMIT) {
+            if (player.getTableau().hasSpeedLimit()) {
+                validMove = true;
+            } else {
+                validMove = false;
+            }
+        } else if (card.getType() == SpeedCardType.SPEED_LIMIT) {
+            if (player.getOpponentTableau().safetyPileContains(SafetyCardType.RIGHT_OF_WAY)) {
+                validMove = false;
+            } else if (player.getOpponentTableau().getSpeedPile().isEmpty()) {
+                validMove = true;
+            } else if (player.getOpponentTableau().getBattlePile().isEmpty()) {
+                if (player.getOpponentTableau().getSpeedPile().peek().getType() == SpeedCardType.SPEED_LIMIT) {
+                    validMove = false;
+                } else {
+                    validMove = true;
+                }
+            } else if (player.getOpponentTableau().getSpeedPile().peek().getType() == SpeedCardType.SPEED_LIMIT) {
+                validMove = false;
+            } else {
+                // opponent top card in speed pile must be an END_LIMIT
+                validMove = true;
+            }
+        }
+        return validMove;
+    }
+
+    public boolean checkValidBattleCardMoves(Player player, Card card) {
+        boolean validMove = false;
+        if (card instanceof HazardCard) {
+            if (player.getOpponentTableau().isRolling()) {
+                if (card.getType() == HazardCardType.ACCIDENT) {
+                    if (player.getOpponentTableau().safetyPileContains(SafetyCardType.DRIVING_ACE)) {
+                        validMove = false;
+                    } else {
+                        validMove = true;
+                    }
+                } else if (card.getType() == HazardCardType.FLAT_TIRE) {
+                    if (player.getOpponentTableau().safetyPileContains(SafetyCardType.PUNCTURE_PROOF)) {
+                        validMove = false;
+                    } else {
+                        validMove = true;
+                    }
+                } else if (card.getType() == HazardCardType.OUT_OF_GAS) {
+                    if (player.getOpponentTableau().safetyPileContains(SafetyCardType.EXTRA_TANK)) {
+                        validMove = false;
+                    } else {
+                        validMove = true;
+                    }
+                } else if (card.getType() == HazardCardType.STOP) {
+                    if (player.getOpponentTableau().safetyPileContains(SafetyCardType.RIGHT_OF_WAY)) {
+                        validMove = false;
+                    } else {
+                        validMove = true;
+                    }
+                }
+            } else {
+                validMove = false;
+            }
+        } else if (card instanceof RemedyCard) {
+            if (player.getTableau().getBattlePile().isEmpty()) {
+                validMove = false;
+            } else {
+                if (card.getType() == RemedyCardType.GASOLINE) {
+                    if (player.getTableau().getBattlePileTopCard().getType() == HazardCardType.OUT_OF_GAS) {
+                        validMove = true;
+                    } else {
+                        validMove = false;
+                    }
+                } else if (card.getType() == RemedyCardType.REPAIR) {
+                    if (player.getTableau().getBattlePileTopCard().getType() == HazardCardType.ACCIDENT) {
+                        validMove = true;
+                    } else {
+                        validMove = false;
+                    }
+                } else if (card.getType() == RemedyCardType.ROLL) {
+                    if (player.getTableau().getBattlePileTopCard().getType() == RemedyCardType.GASOLINE) {
+                        validMove = true;
+                    } else if (player.getTableau().getBattlePileTopCard().getType() == RemedyCardType.REPAIR) {
+                        validMove = true;
+                    } else if (player.getTableau().getBattlePileTopCard().getType() == RemedyCardType.SPARE_TIRE) {
+                        validMove = true;
+                    } else if (player.getTableau().getBattlePileTopCard().getType() == RemedyCardType.ROLL) {
+                        validMove = false;
+                    } else {
+                        validMove = false;
+                    }
+                } else if (card.getType() == RemedyCardType.SPARE_TIRE) {
+                    if (player.getTableau().getBattlePileTopCard().getType() == HazardCardType.FLAT_TIRE) {
+                        validMove = true;
+                    } else {
+                        validMove = false;
+                    }
+                }
+            }
+        }
+        return validMove;
     }
 
     public boolean canMoveHere(Player player, Card card, CardLocation destination) {

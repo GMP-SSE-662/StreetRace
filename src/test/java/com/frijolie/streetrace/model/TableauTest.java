@@ -1,6 +1,5 @@
 package com.frijolie.streetrace.model;
 
-import com.frijolie.streetrace.model.Tableau;
 import com.frijolie.streetrace.model.cards.BattleCard;
 import com.frijolie.streetrace.model.cards.Card;
 import com.frijolie.streetrace.model.cards.DistanceCard;
@@ -252,4 +251,10 @@ public class TableauTest {
         assertFalse(instance.hasSpeedLimit());
     }
 
+    @Test
+    public void testTableau_SafetyPileContains() {
+        SafetyCard extraTank = new SafetyCard(SafetyCardType.EXTRA_TANK);
+        instance.addToSafetyPile(extraTank);
+        assertTrue(instance.safetyPileContains(SafetyCardType.EXTRA_TANK));
+    }
 }

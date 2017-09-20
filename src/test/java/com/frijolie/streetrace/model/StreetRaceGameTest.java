@@ -414,7 +414,7 @@ public class StreetRaceGameTest {
     }
 
     @Test
-    public void testStreetRaceGame_IsValidMoveDistanceCardRollingNoLimitMiles25() {
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingMiles25() {
         DistanceCard miles25 = new DistanceCard(DistanceCardType.MILES_25);
         RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
         playerTableau.addToBattlePile(roll);
@@ -422,7 +422,7 @@ public class StreetRaceGameTest {
     }
 
     @Test
-    public void testStreetRaceGame_IsValidMoveDistanceCardRollingNoLimitMiles50() {
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingMiles50() {
         DistanceCard miles50 = new DistanceCard(DistanceCardType.MILES_50);
         RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
         playerTableau.addToBattlePile(roll);
@@ -430,7 +430,7 @@ public class StreetRaceGameTest {
     }
 
     @Test
-    public void testStreetRaceGame_IsValidMoveDistanceCardRollingNoLimitMiles75() {
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingMiles75() {
         DistanceCard miles75 = new DistanceCard(DistanceCardType.MILES_75);
         RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
         player.getTableau().addToBattlePile(roll);
@@ -438,7 +438,7 @@ public class StreetRaceGameTest {
     }
 
     @Test
-    public void testStreetRaceGame_IsValidMoveDistanceCardRollingNoLimitMiles100() {
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingMiles100() {
         DistanceCard miles100 = new DistanceCard(DistanceCardType.MILES_100);
         RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
         player.getTableau().addToBattlePile(roll);
@@ -446,7 +446,7 @@ public class StreetRaceGameTest {
     }
 
     @Test
-    public void testStreetRaceGame_IsValidMoveDistanceCardRollingNoLimitMiles200() {
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingMiles200() {
         DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
         RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
         player.getTableau().addToBattlePile(roll);
@@ -454,7 +454,17 @@ public class StreetRaceGameTest {
     }
 
     @Test
-    public void testStreetRaceGame_IsValidMoveDistanceCardRollingSpeedLimitMiles25() {
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingTwoMiles200() {
+        DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getTableau().addToBattlePile(roll);
+        player.getTableau().addPlayed200s();
+        player.getTableau().addPlayed200s();
+        assertFalse(game.isValidMove(player, miles200));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingLimitMiles25() {
         DistanceCard miles25 = new DistanceCard(DistanceCardType.MILES_25);
         RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
         SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
@@ -464,7 +474,7 @@ public class StreetRaceGameTest {
     }
 
     @Test
-    public void testStreetRaceGame_IsValidMoveDistanceCardRollingSpeedLimitMiles50() {
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingLimitMiles50() {
         DistanceCard miles50 = new DistanceCard(DistanceCardType.MILES_50);
         RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
         SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
@@ -474,7 +484,7 @@ public class StreetRaceGameTest {
     }
 
     @Test
-    public void testStreetRaceGame_IsValidMoveDistanceCardRollingSpeedLimitMiles75() {
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingLimitMiles75() {
         DistanceCard miles75 = new DistanceCard(DistanceCardType.MILES_75);
         RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
         SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
@@ -484,7 +494,7 @@ public class StreetRaceGameTest {
     }
 
     @Test
-    public void testStreetRaceGame_IsValidMoveDistanceCardRollingSpeedLimitMiles100() {
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingLimitMiles100() {
         DistanceCard miles100 = new DistanceCard(DistanceCardType.MILES_100);
         RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
         SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
@@ -494,7 +504,7 @@ public class StreetRaceGameTest {
     }
 
     @Test
-    public void testStreetRaceGame_IsValidMoveDistanceCardRollingSpeedLimitMiles200() {
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingLimitMiles200() {
         DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
         RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
         SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
@@ -504,17 +514,7 @@ public class StreetRaceGameTest {
     }
 
     @Test
-    public void testStreetRaceGame_IsValidMoveDistanceCardRollingNoLimitTwoMiles200() {
-        DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
-        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
-        player.getTableau().addToBattlePile(roll);
-        player.getTableau().addPlayed200s();
-        player.getTableau().addPlayed200s();
-        assertFalse(game.isValidMove(player, miles200));
-    }
-
-    @Test
-    public void testStreetRaceGame_IsValidMoveDistanceCardRollingMileLimitExceededMiles50() {
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingExceededMiles50() {
         DistanceCard miles50 = new DistanceCard(DistanceCardType.MILES_50);
         DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
         DistanceCard miles200b = new DistanceCard(DistanceCardType.MILES_200);
@@ -534,12 +534,13 @@ public class StreetRaceGameTest {
         player.getTableau().addToDistancePile(miles100d);
         player.getTableau().addToDistancePile(miles100e);
         player.getTableau().addToDistancePile(miles75);
+        // totalMiles = 975 + 50
         player.getTableau().calculateTotalMiles();
         assertFalse(game.isValidMove(player, miles50));
     }
 
     @Test
-    public void testStreetRaceGame_IsValidMoveDistanceCardRollingMileLimitExceededMiles75() {
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingExceededMiles75() {
         DistanceCard miles75 = new DistanceCard(DistanceCardType.MILES_75);
         DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
         DistanceCard miles200b = new DistanceCard(DistanceCardType.MILES_200);
@@ -559,8 +560,61 @@ public class StreetRaceGameTest {
         player.getTableau().addToDistancePile(miles100d);
         player.getTableau().addToDistancePile(miles100e);
         player.getTableau().addToDistancePile(miles75);
+        // totalMiles = 975 + 75
         player.getTableau().calculateTotalMiles();
         assertFalse(game.isValidMove(player, miles75b));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingExceededMiles100() {
+        DistanceCard miles50 = new DistanceCard(DistanceCardType.MILES_50);
+        DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
+        DistanceCard miles200b = new DistanceCard(DistanceCardType.MILES_200);
+        DistanceCard miles100 = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100b = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100c = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100d = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100e = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100f = new DistanceCard(DistanceCardType.MILES_100);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getTableau().addToBattlePile(roll);
+        player.getTableau().addToDistancePile(miles200);
+        player.getTableau().addToDistancePile(miles200b);
+        player.getTableau().addToDistancePile(miles100);
+        player.getTableau().addToDistancePile(miles100b);
+        player.getTableau().addToDistancePile(miles100c);
+        player.getTableau().addToDistancePile(miles100d);
+        player.getTableau().addToDistancePile(miles100e);
+        player.getTableau().addToDistancePile(miles50);
+        // totalMiles = 950 + 100
+        player.getTableau().calculateTotalMiles();
+        assertFalse(game.isValidMove(player, miles100f));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveDistanceCardRollingExceededMiles200() {
+        DistanceCard miles50 = new DistanceCard(DistanceCardType.MILES_50);
+        DistanceCard miles200 = new DistanceCard(DistanceCardType.MILES_200);
+        DistanceCard miles200b = new DistanceCard(DistanceCardType.MILES_200);
+        DistanceCard miles200c = new DistanceCard(DistanceCardType.MILES_200);
+        DistanceCard miles100 = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100b = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100c = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100d = new DistanceCard(DistanceCardType.MILES_100);
+        DistanceCard miles100e = new DistanceCard(DistanceCardType.MILES_100);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getTableau().addToBattlePile(roll);
+        player.getTableau().addToDistancePile(miles200);
+        player.getTableau().addToDistancePile(miles200b);
+        player.getTableau().addToDistancePile(miles100);
+        player.getTableau().addToDistancePile(miles100b);
+        player.getTableau().addToDistancePile(miles100c);
+        player.getTableau().addToDistancePile(miles100d);
+        player.getTableau().addToDistancePile(miles100e);
+        player.getTableau().addToDistancePile(miles50);
+        // totalMiles = 950 + 200
+        player.getTableau().calculateTotalMiles();
+        assertFalse(game.isValidMove(player, miles200c));
     }
 
     @Test
@@ -568,4 +622,247 @@ public class StreetRaceGameTest {
         DistanceCard miles75 = new DistanceCard(DistanceCardType.MILES_75);
         assertFalse(game.isValidMove(player, miles75));
     }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveSpeedCardNoSpeedLimitEndLimit() {
+        SpeedCard endLimit = new SpeedCard(SpeedCardType.END_LIMIT);
+        assertFalse(game.isValidMove(player, endLimit));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveSpeedCardSpeedLimitEndLimit() {
+        SpeedCard endLimit = new SpeedCard(SpeedCardType.END_LIMIT);
+        SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        playerTableau.addToSpeedPile(speedLimit);
+        assertTrue(game.isValidMove(player, endLimit));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveSpeedCardNoLimitEndLimit() {
+        SpeedCard endLimit = new SpeedCard(SpeedCardType.END_LIMIT);
+        assertFalse(game.isValidMove(player, endLimit));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveSpeedCardOppSpeedNotEmptyOppBattleNotEmptyOppSpeedTopNotSpeedLimit() {
+        SpeedCard endLimit = new SpeedCard(SpeedCardType.END_LIMIT);
+        SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        player.getOpponentTableau().addToSpeedPile(endLimit);
+        HazardCard accident = new HazardCard(HazardCardType.ACCIDENT);
+        player.getOpponentTableau().addToBattlePile(accident);
+        assertTrue(game.isValidMove(player, speedLimit));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveSpeedCardOppSpeedNotEmptyOppBattleNotEmptyOppSpeedTopIsSpeedLimit() {
+        SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        SpeedCard cardToTest = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        player.getOpponentTableau().addToSpeedPile(speedLimit);
+        HazardCard accident = new HazardCard(HazardCardType.ACCIDENT);
+        player.getOpponentTableau().addToBattlePile(accident);
+        assertFalse(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveSpeedCardOppSpeedNotEmptyOppBattleEmptySpeedTopNotSpeedLimit() {
+        SpeedCard endLimit = new SpeedCard(SpeedCardType.END_LIMIT);
+        SpeedCard cardToTest = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        player.getOpponentTableau().addToSpeedPile(endLimit);
+        assertTrue(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveSpeedCardOppSpeedNotEmptyOppBattleEmptySpeedTopIsSpeedLimit() {
+        SpeedCard speedLimit = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        SpeedCard cardToTest = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        player.getOpponentTableau().addToSpeedPile(speedLimit);
+        assertFalse(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveSpeedCardOppSpeedEmpty() {
+        SpeedCard cardToTest = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        assertTrue(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveSpeedCardHasRightOfWay() {
+        SafetyCard rightOfWay = new SafetyCard(SafetyCardType.RIGHT_OF_WAY);
+        SpeedCard cardToTest = new SpeedCard(SpeedCardType.SPEED_LIMIT);
+        player.getOpponentTableau().addToSafetyPile(rightOfWay);
+        assertFalse(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardHazardRollingHasDrivingAceAccidentCard() {
+        HazardCard cardToTest = new HazardCard(HazardCardType.ACCIDENT);
+        SafetyCard drivingAce = new SafetyCard(SafetyCardType.DRIVING_ACE);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getOpponentTableau().addToBattlePile(roll);
+        player.getOpponentTableau().addToSafetyPile(drivingAce);
+        assertFalse(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardHazardRollingAccidentCard() {
+        HazardCard cardToTest = new HazardCard(HazardCardType.ACCIDENT);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getOpponentTableau().addToBattlePile(roll);
+        assertTrue(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardHazardRollingPunctureProofFlatTireCard() {
+        HazardCard cardToTest = new HazardCard(HazardCardType.FLAT_TIRE);
+        SafetyCard punctureProof = new SafetyCard(SafetyCardType.PUNCTURE_PROOF);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getOpponentTableau().addToBattlePile(roll);
+        player.getOpponentTableau().addToSafetyPile(punctureProof);
+        assertFalse(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardHazardRollingFlatTireCard() {
+        HazardCard cardToTest = new HazardCard(HazardCardType.FLAT_TIRE);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getOpponentTableau().addToBattlePile(roll);
+        assertTrue(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardHazardRollingHasExtraTankOutOfGasCard() {
+        HazardCard cardToTest = new HazardCard(HazardCardType.OUT_OF_GAS);
+        SafetyCard extraTank = new SafetyCard(SafetyCardType.EXTRA_TANK);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getOpponentTableau().addToBattlePile(roll);
+        player.getOpponentTableau().addToSafetyPile(extraTank);
+        assertFalse(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardHazardRollingOutOfGasCard() {
+        HazardCard cardToTest = new HazardCard(HazardCardType.OUT_OF_GAS);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getOpponentTableau().addToBattlePile(roll);
+        assertTrue(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardHazardRollingHasRightOfWayStopCard() {
+        HazardCard cardToTest = new HazardCard(HazardCardType.STOP);
+        SafetyCard rightOfWay = new SafetyCard(SafetyCardType.RIGHT_OF_WAY);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getOpponentTableau().addToBattlePile(roll);
+        player.getOpponentTableau().addToSafetyPile(rightOfWay);
+        assertFalse(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardHazardRollingStopCard() {
+        HazardCard cardToTest = new HazardCard(HazardCardType.STOP);
+        RemedyCard roll = new RemedyCard(RemedyCardType.ROLL);
+        player.getOpponentTableau().addToBattlePile(roll);
+        assertTrue(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardHazardNotRolling() {
+        HazardCard cardToTest = new HazardCard(HazardCardType.STOP);
+        assertFalse(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardRemedyBattlePileNotEmptyHasOutOfGasGasolineCard() {
+        RemedyCard cardToTest = new RemedyCard(RemedyCardType.GASOLINE);
+        HazardCard outOfGas = new HazardCard(HazardCardType.OUT_OF_GAS);
+        player.getTableau().addToBattlePile(outOfGas);
+        assertTrue(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardRemedyBattlePileNotEmptyGasolineCard() {
+        RemedyCard cardToTest = new RemedyCard(RemedyCardType.GASOLINE);
+        HazardCard flatTire = new HazardCard(HazardCardType.FLAT_TIRE);
+        player.getTableau().addToBattlePile(flatTire);
+        assertFalse(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardRemedyBattlePileNotEmptyHasAccidentRepairCard() {
+        RemedyCard cardToTest = new RemedyCard(RemedyCardType.REPAIR);
+        HazardCard accident = new HazardCard(HazardCardType.ACCIDENT);
+        player.getTableau().addToBattlePile(accident);
+        assertTrue(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardRemedyBattlePileNotEmptyRepairCard() {
+        RemedyCard cardToTest = new RemedyCard(RemedyCardType.REPAIR);
+        HazardCard flatTire = new HazardCard(HazardCardType.FLAT_TIRE);
+        player.getTableau().addToBattlePile(flatTire);
+        assertFalse(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardRemedyBattlePileNotEmptyHasFlatTireSpareTireCard() {
+        RemedyCard cardToTest = new RemedyCard(RemedyCardType.SPARE_TIRE);
+        HazardCard flatTire = new HazardCard(HazardCardType.FLAT_TIRE);
+        player.getTableau().addToBattlePile(flatTire);
+        assertTrue(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardRemedyBattlePileNotEmptySpareTireCard() {
+        RemedyCard cardToTest = new RemedyCard(RemedyCardType.SPARE_TIRE);
+        HazardCard stop = new HazardCard(HazardCardType.STOP);
+        player.getTableau().addToBattlePile(stop);
+        assertFalse(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardRemedyBattlePileNotEmptyHasGasolineRollCard() {
+        RemedyCard cardToTest = new RemedyCard(RemedyCardType.ROLL);
+        RemedyCard gasoline = new RemedyCard(RemedyCardType.GASOLINE);
+        player.getTableau().addToBattlePile(gasoline);
+        assertTrue(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardRemedyBattlePileNotEmptyHasRepairRollCard() {
+        RemedyCard cardToTest = new RemedyCard(RemedyCardType.ROLL);
+        RemedyCard remedyCard = new RemedyCard(RemedyCardType.REPAIR);
+        player.getTableau().addToBattlePile(remedyCard);
+        assertTrue(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardRemedyBattlePileNotEmptyHasSpareTireRollCard() {
+        RemedyCard cardToTest = new RemedyCard(RemedyCardType.ROLL);
+        RemedyCard remedyCard = new RemedyCard(RemedyCardType.SPARE_TIRE);
+        player.getTableau().addToBattlePile(remedyCard);
+        assertTrue(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardRemedyBattlePileNotEmptyHasRollRollCard() {
+        RemedyCard cardToTest = new RemedyCard(RemedyCardType.ROLL);
+        RemedyCard remedyCard = new RemedyCard(RemedyCardType.ROLL);
+        player.getTableau().addToBattlePile(remedyCard);
+        assertFalse(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardRemedyBattlePileNotEmptyHasHazardCardRollCard() {
+        RemedyCard cardToTest = new RemedyCard(RemedyCardType.ROLL);
+        HazardCard hazardCard = new HazardCard(HazardCardType.FLAT_TIRE);
+        player.getTableau().addToBattlePile(hazardCard);
+        assertFalse(game.isValidMove(player, cardToTest));
+    }
+
+    @Test
+    public void testStreetRaceGame_IsValidMoveBattleCardRemedyBattlePileEmptyRemedyCard() {
+        RemedyCard cardToTest = new RemedyCard(RemedyCardType.ROLL);
+        assertFalse(game.isValidMove(player, cardToTest));
+    }
+
 }

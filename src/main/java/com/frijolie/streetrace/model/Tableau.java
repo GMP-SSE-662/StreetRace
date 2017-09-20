@@ -8,6 +8,7 @@ import com.frijolie.streetrace.model.cards.DistanceCardType;
 import com.frijolie.streetrace.model.cards.HazardCard;
 import com.frijolie.streetrace.model.cards.RemedyCardType;
 import com.frijolie.streetrace.model.cards.SafetyCard;
+import com.frijolie.streetrace.model.cards.SafetyCardType;
 import com.frijolie.streetrace.model.cards.SpeedCard;
 import com.frijolie.streetrace.model.cards.SpeedCardType;
 import java.util.ArrayList;
@@ -105,6 +106,16 @@ public class Tableau {
         }
         CardType topCard = speedPile.peek().getType();
         return topCard == SpeedCardType.SPEED_LIMIT;
+    }
+
+    public boolean safetyPileContains(SafetyCardType type) {
+        boolean containsCard = false;
+        for(Card card: safetyPile) {
+            if (card.getType() == type) {
+                containsCard = true;
+            }
+        }
+        return containsCard;
     }
 
     public List<DistanceCard> getDistancePile() {

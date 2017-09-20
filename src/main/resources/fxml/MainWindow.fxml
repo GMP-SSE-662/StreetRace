@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="750.0" maxWidth="540.0" minHeight="750.0" minWidth="540.0" prefHeight="750.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frijolie.streetrace.controller.MainWindowController">
+<AnchorPane maxHeight="775.0" maxWidth="540.0" minHeight="775.0" minWidth="540.0" prefHeight="775.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frijolie.streetrace.controller.MainWindowController">
     <children>
         <SplitPane dividerPositions="0.8193979933110368, 0.5, 0.5" maxHeight="600.0" maxWidth="540.0" minHeight="600.0" minWidth="540.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="540.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
-                  <AnchorPane fx:id="gamePane" maxHeight="150.0" minHeight="150.0" prefHeight="150.0">
-                      <children>
-                  <HBox alignment="CENTER" layoutX="427.5" layoutY="-0.5" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
+                <AnchorPane fx:id="gamePane" maxHeight="150.0" minHeight="150.0" prefHeight="150.0">
+                    <children>
+                        <HBox alignment="CENTER" layoutX="427.5" layoutY="-0.5" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
                                 <GridPane alignment="CENTER" gridLinesVisible="true" maxWidth="300.0" minWidth="300.0" prefWidth="300.0" HBox.hgrow="NEVER">
                                     <columnConstraints>
                                         <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
@@ -40,195 +40,189 @@
                                         <Label fx:id="computerMilesLabel" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                         <Label fx:id="computerScoreLabel" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                                     </children>
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
+                                    <HBox.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </HBox.margin>
                                 </GridPane>
-                                  <StackPane fx:id="discardPile" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                                      <children>
-                                          <Label text="Discard Pile" textAlignment="CENTER" wrapText="true" />
-                                      </children>
-                                  </StackPane>
-                                  <StackPane fx:id="deck" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                                      <children>
-                                          <Label alignment="CENTER" text="Deck" />
-                                      </children>
-                                  </StackPane>
-                     </children>
-                  </HBox>
-                      </children>
-                  </AnchorPane>
-            <AnchorPane fx:id="opponentPane" maxHeight="250.0" minHeight="250.0" prefHeight="250.0">
-               <children>
-                  <HBox fx:id="playerMileCards1" alignment="BOTTOM_LEFT" maxHeight="100.0" maxWidth="400.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0">
-                     <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                     </padding>
-                     <children>
-                        <StackPane fx:id="miles25Pile1" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;" HBox.hgrow="NEVER">
-                           <children>
-                              <Label text="25" />
-                           </children>
-                        </StackPane>
-                        <StackPane fx:id="miles50Pile1" layoutX="247.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                           <children>
-                              <Label text="50" />
-                           </children>
-                        </StackPane>
-                        <StackPane fx:id="miles75Pile1" layoutX="204.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                           <children>
-                              <Label text="75" />
-                           </children>
-                        </StackPane>
-                        <StackPane fx:id="miles100Pile1" layoutX="162.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                           <children>
-                              <Label text="100" />
-                           </children>
-                        </StackPane>
-                        <StackPane fx:id="miles200Pile1" layoutX="119.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                           <children>
-                              <Label text="200" />
-                           </children>
-                        </StackPane>
-                     </children>
-                  </HBox>
-                  <HBox fx:id="playerSafetyCards1" alignment="CENTER" maxHeight="100.0" maxWidth="400.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="400.0" spacing="40.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
-                     <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                     </padding>
-                     <children>
-                        <StackPane fx:id="playerDrivingAcePile1" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                           <children>
-                              <Label text="Driving Ace" textAlignment="CENTER" wrapText="true" />
-                           </children>
-                        </StackPane>
-                        <StackPane fx:id="playerExtraTankPile1" layoutX="20.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                           <children>
-                              <Label text="Extra Tank" textAlignment="CENTER" wrapText="true" />
-                           </children>
-                        </StackPane>
-                        <StackPane fx:id="playerPunctureProofPile1" layoutX="20.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                           <children>
-                              <Label alignment="CENTER" text="Puncture Proof" textAlignment="CENTER" wrapText="true" />
-                           </children>
-                        </StackPane>
-                        <StackPane fx:id="playerRightOfWayPile1" layoutX="20.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                           <children>
-                              <Label text="Right of Way" textAlignment="CENTER" wrapText="true" />
-                           </children>
-                        </StackPane>
-                     </children>
-                  </HBox>
-                  <VBox fx:id="playerPiles1" alignment="CENTER" maxHeight="210.0" maxWidth="100.0" minHeight="210.0" minWidth="100.0" prefHeight="210.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="420.0" AnchorPane.rightAnchor="10.0">
-                     <children>
-                        <StackPane fx:id="playerBattlePile1" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                           <children>
-                              <Label alignment="CENTER" text="Battle Pile" />
-                           </children>
-                        </StackPane>
-                        <StackPane fx:id="playerSpeedPile1" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                           <children>
-                              <Label text="Speed Pile" />
-                           </children>
-                        </StackPane>
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
-                  <AnchorPane fx:id="playerPane" maxHeight="250.0" minHeight="250.0" prefHeight="250.0" SplitPane.resizableWithParent="false">
-                      <children>
-                          <HBox fx:id="playerMileCards" alignment="BOTTOM_LEFT" maxHeight="100.0" maxWidth="400.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0">
-                              <padding>
-                                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                              </padding>
-                              <children>
-                                  <StackPane fx:id="miles25Pile" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;" HBox.hgrow="NEVER">
-                                      <children>
-                                          <Label text="25" />
-                                      </children>
-                                  </StackPane>
-                                  <StackPane fx:id="miles50Pile" layoutX="247.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                                      <children>
-                                          <Label text="50" />
-                                      </children>
-                                  </StackPane>
-                                  <StackPane fx:id="miles75Pile" layoutX="204.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                                      <children>
-                                          <Label text="75" />
-                                      </children>
-                                  </StackPane>
-                                  <StackPane fx:id="miles100Pile" layoutX="162.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                                      <children>
-                                          <Label text="100" />
-                                      </children>
-                                  </StackPane>
-                                  <StackPane fx:id="miles200Pile" layoutX="119.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                                      <children>
-                                          <Label text="200" />
-                                      </children>
-                                  </StackPane>
-                              </children>
-                          </HBox>
-                          <HBox fx:id="playerSafetyCards" alignment="CENTER" maxHeight="100.0" maxWidth="400.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="400.0" spacing="40.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
-                              <padding>
-                                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                              </padding>
-                              <children>
-                                  <StackPane fx:id="playerDrivingAcePile" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                                      <children>
-                                          <Label text="Driving Ace" textAlignment="CENTER" wrapText="true" />
-                                      </children>
-                                  </StackPane>
-                                  <StackPane fx:id="playerExtraTankPile" layoutX="20.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                                      <children>
-                                          <Label text="Extra Tank" textAlignment="CENTER" wrapText="true" />
-                                      </children>
-                                  </StackPane>
-                                  <StackPane fx:id="playerPunctureProofPile" layoutX="20.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                                      <children>
-                                          <Label alignment="CENTER" text="Puncture Proof" textAlignment="CENTER" wrapText="true" />
-                                      </children>
-                                  </StackPane>
-                                  <StackPane fx:id="playerRightOfWayPile" layoutX="20.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                                      <children>
-                                          <Label text="Right of Way" textAlignment="CENTER" wrapText="true" />
-                                      </children>
-                                  </StackPane>
-                              </children>
-                          </HBox>
-                          <VBox fx:id="playerPiles" alignment="CENTER" maxHeight="210.0" maxWidth="100.0" minHeight="210.0" minWidth="100.0" prefHeight="210.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="420.0" AnchorPane.rightAnchor="10.0">
-                              <children>
-                                  <StackPane fx:id="playerBattlePile" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                                      <children>
-                                          <Label alignment="CENTER" text="Battle Pile" />
-                                      </children>
-                                  </StackPane>
-                                  <StackPane fx:id="playerSpeedPile" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
-                                      <children>
-                                          <Label text="Speed Pile" />
-                                      </children>
-                                  </StackPane>
-                              </children>
-                          </VBox>
-                      </children>
-                  </AnchorPane>
+                                <StackPane fx:id="discardPile" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="Discard Pile" textAlignment="CENTER" wrapText="true" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="deck" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label alignment="CENTER" text="Deck" />
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </HBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="opponentPane" maxHeight="250.0" minHeight="250.0" prefHeight="250.0">
+                    <children>
+                        <HBox alignment="BOTTOM_LEFT" maxHeight="100.0" maxWidth="400.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0">
+                            <padding>
+                                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                            </padding>
+                            <children>
+                                <StackPane fx:id="oppMiles25Pile" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;" HBox.hgrow="NEVER">
+                                    <children>
+                                        <Label text="25" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="oppMiles50Pile" layoutX="247.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="50" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="oppMiles75Pile" layoutX="204.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="75" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="oppMiles100Pile" layoutX="162.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="100" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="oppMiles200Pile" layoutX="119.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="200" />
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" maxHeight="100.0" maxWidth="400.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="400.0" spacing="40.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                            <padding>
+                                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                            </padding>
+                            <children>
+                                <StackPane fx:id="oppDrivingAcePile" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="Driving Ace" textAlignment="CENTER" wrapText="true" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="oppExtraTankPile" layoutX="20.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="Extra Tank" textAlignment="CENTER" wrapText="true" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="oppPunctureProofPile" layoutX="20.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label alignment="CENTER" text="Puncture Proof" textAlignment="CENTER" wrapText="true" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="oppRightOfWayPile" layoutX="20.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="Right of Way" textAlignment="CENTER" wrapText="true" />
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </HBox>
+                        <VBox alignment="CENTER" maxHeight="210.0" maxWidth="100.0" minHeight="210.0" minWidth="100.0" prefHeight="210.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="420.0" AnchorPane.rightAnchor="10.0">
+                            <children>
+                                <StackPane fx:id="oppBattlePile" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label alignment="CENTER" text="Battle Pile" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="oppSpeedPile" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="Speed Pile" />
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="playerPane" maxHeight="250.0" minHeight="250.0" prefHeight="250.0" SplitPane.resizableWithParent="false">
+                    <children>
+                        <HBox alignment="BOTTOM_LEFT" maxHeight="100.0" maxWidth="400.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0">
+                            <padding>
+                                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                            </padding>
+                            <children>
+                                <StackPane fx:id="miles25Pile" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;" HBox.hgrow="NEVER">
+                                    <children>
+                                        <Label text="25" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="miles50Pile" layoutX="247.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="50" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="miles75Pile" layoutX="204.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="75" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="miles100Pile" layoutX="162.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="100" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="miles200Pile" layoutX="119.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="200" />
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" maxHeight="100.0" maxWidth="400.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="400.0" spacing="40.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                            <padding>
+                                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                            </padding>
+                            <children>
+                                <StackPane fx:id="playerDrivingAcePile" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="Driving Ace" textAlignment="CENTER" wrapText="true" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="playerExtraTankPile" layoutX="20.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="Extra Tank" textAlignment="CENTER" wrapText="true" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="playerPunctureProofPile" layoutX="20.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label alignment="CENTER" text="Puncture Proof" textAlignment="CENTER" wrapText="true" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="playerRightOfWayPile" layoutX="20.0" layoutY="15.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="Right of Way" textAlignment="CENTER" wrapText="true" />
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </HBox>
+                        <VBox alignment="CENTER" maxHeight="210.0" maxWidth="100.0" minHeight="210.0" minWidth="100.0" prefHeight="210.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="420.0" AnchorPane.rightAnchor="10.0">
+                            <children>
+                                <StackPane fx:id="playerBattlePile" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label alignment="CENTER" text="Battle Pile" />
+                                    </children>
+                                </StackPane>
+                                <StackPane fx:id="playerSpeedPile" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label text="Speed Pile" />
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
                 <AnchorPane fx:id="playerHand" maxHeight="100.0" minHeight="100.0" prefHeight="100.0">
                     <children>
-                        <HBox fx:id="playerHand" alignment="CENTER" layoutX="-42.0" layoutY="-4.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <StackPane fx:id="handOne" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;" />
-                                <StackPane fx:id="handTwo" layoutX="247.0" layoutY="18.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;" />
-                                <StackPane fx:id="handThree" layoutX="209.0" layoutY="18.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;" />
-                                <StackPane fx:id="handFour" layoutX="247.0" layoutY="18.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;" />
-                                <StackPane fx:id="handFive" layoutX="284.0" layoutY="18.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;" />
-                                <StackPane fx:id="handSix" layoutX="247.0" layoutY="18.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;" />
-                                <StackPane fx:id="handSeven" layoutX="284.0" layoutY="18.0" maxHeight="90.0" maxWidth="65.0" minHeight="90.0" minWidth="65.0" prefHeight="90.0" prefWidth="65.0" style="-fx-border-color: black; -fx-border-radius: 5;" />
-                            </children>
+                        <HBox fx:id="playerHandHBox" alignment="CENTER" spacing="10.0">
                             <padding>
                                 <Insets left="5.0" right="5.0" />
                             </padding>
                         </HBox>
                     </children>
+                    <padding>
+                        <Insets top="10.0" />
+                    </padding>
                 </AnchorPane>
             </items>
         </SplitPane>

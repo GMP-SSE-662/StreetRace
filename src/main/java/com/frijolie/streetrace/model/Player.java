@@ -1,6 +1,8 @@
 package com.frijolie.streetrace.model;
 
+import com.frijolie.streetrace.model.cards.Card;
 import java.util.Objects;
+import javafx.collections.ObservableList;
 
 public class Player {
 
@@ -14,8 +16,8 @@ public class Player {
         tableau = new Tableau();
     }
 
-    public Hand getHand() {
-        return hand;
+    public ObservableList<Card> getHand() {
+        return hand.getList();
     }
 
     public Tableau getOpponentTableau() {

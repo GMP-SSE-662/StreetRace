@@ -12,8 +12,8 @@ import com.frijolie.streetrace.model.cards.SafetyCard;
 import com.frijolie.streetrace.model.cards.SafetyCardType;
 import com.frijolie.streetrace.model.cards.SpeedCard;
 import com.frijolie.streetrace.model.cards.SpeedCardType;
-import java.util.List;
 import java.util.Stack;
+import javafx.collections.ObservableList;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -27,8 +27,8 @@ public class StreetRaceGameTest {
     StreetRaceGame game;
     Player player;
     Player computer;
-    List<Card> playerHand;
-    List<Card> computerHand;
+    ObservableList<Card> playerHand;
+    ObservableList<Card> computerHand;
     Tableau playerTableau;
     Tableau computerTableau;
     Deck deck;
@@ -42,8 +42,8 @@ public class StreetRaceGameTest {
         game = StreetRaceGame.getInstance();
         player = game.getPlayer();
         computer = game.getComputer();
-        playerHand = game.getPlayerHand().getList();
-        computerHand = game.getComputerHand().getList();
+        playerHand = game.getPlayerHand();
+        computerHand = game.getComputerHand();
         playerTableau = game.getPlayerTableau();
         computerTableau = game.getComputerTableau();
         deck = game.getDeck();
@@ -242,7 +242,7 @@ public class StreetRaceGameTest {
     public void testStreetRaceGame_CardLocationPlayerHand() {
         playerHand.clear();
         BattleCard stop = new HazardCard(HazardCardType.STOP);
-        game.getPlayer().getHand().addCard(stop);
+        game.getPlayerHand().add(stop);
         assertTrue(game.getLocation(stop) == CardLocation.PLAYER_HAND);
     }
 

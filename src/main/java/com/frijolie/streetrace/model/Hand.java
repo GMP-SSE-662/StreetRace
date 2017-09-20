@@ -4,13 +4,17 @@ import com.frijolie.streetrace.model.cards.Card;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Hand {
 
-    private List<Card> hand;
+    private List<Card> list;
+    private ObservableList<Card> hand;
 
     public Hand() {
-        hand = new ArrayList<>();
+        list = new ArrayList<>();
+        hand = FXCollections.observableList(list);
     }
 
     public boolean addCard(Card card) {
@@ -28,19 +32,19 @@ public class Hand {
         }
     }
 
-    public List<Card> getList() {
+    public ObservableList<Card> getList() {
         return hand;
     }
 
     public void displayHand() {
         int index = 0;
-        for (Card card : hand) {
+        for (Card card : list) {
             System.out.println("[" + index++ + "] " + card.getType());
         }
     }
 
     public void clear() {
-        hand.clear();
+        list.clear();
     }
 
 }

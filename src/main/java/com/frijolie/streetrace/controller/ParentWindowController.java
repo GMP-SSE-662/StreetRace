@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,23 +13,18 @@ import javafx.scene.layout.BorderPane;
 
 public class ParentWindowController implements Initializable {
 
-    @FXML
-    private BorderPane mainBorderPane;
+    @FXML private Menu fileMenu;
+    @FXML private MenuItem newGameMenuItem;
+    @FXML private MenuItem exitMenuItem;
 
-    @FXML
-    private MenuItem newGameMenuItem;
+    @FXML private Menu editMenu;
+    @FXML private MenuItem preferencesMenuItem;
 
-    @FXML
-    private MenuItem exitMenuItem;
+    @FXML private Menu helpMenu;
+    @FXML private MenuItem rulesMenuItem;
+    @FXML private MenuItem aboutMenuItem;
 
-    @FXML
-    private MenuItem preferencesMenuItem;
-
-    @FXML
-    private MenuItem rulesMenuItem;
-
-    @FXML
-    private MenuItem aboutMenuItem;
+    @FXML private BorderPane mainBorderPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

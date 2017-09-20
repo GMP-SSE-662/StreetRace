@@ -1,22 +1,16 @@
 package com.frijolie.streetrace.controller;
 
+import com.frijolie.streetrace.model.StreetRaceGame;
+import com.frijolie.streetrace.model.cards.Card;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 
 public class MainWindowController implements Initializable {
 
-    @FXML
-    private AnchorPane computerPane;
-
-    @FXML
-    private AnchorPane playerPane;
-
-    @FXML
-    private HBox playerHand;
+    private StreetRaceGame game = StreetRaceGame.getInstance();
+    private ObservableList<Card> playerHand = game.getPlayerHand();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

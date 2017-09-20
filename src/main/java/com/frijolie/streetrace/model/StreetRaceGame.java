@@ -16,6 +16,7 @@ import com.frijolie.streetrace.model.moves.Move;
 import java.util.List;
 import java.util.Objects;
 import java.util.Stack;
+import javafx.collections.ObservableList;
 
 public class StreetRaceGame implements StreetRaceGameHelper {
 
@@ -32,8 +33,8 @@ public class StreetRaceGame implements StreetRaceGameHelper {
     private final Stack<Card> discardPile;
     private final Stack<Card> drawPile;
     private final Deck deck;
-    private final Hand playerHand;
-    private final Hand computerHand;
+    private final ObservableList<Card> playerHand;
+    private final ObservableList<Card> computerHand;
     private CardLocation location;
     private final int MILE_LIMIT = 1000;
 
@@ -67,8 +68,8 @@ public class StreetRaceGame implements StreetRaceGameHelper {
 
     public void deal() {
         for (int i = 0; i < 7; i++) {
-            playerHand.addCard(drawPile.pop());
-            computerHand.addCard(drawPile.pop());
+            playerHand.add(drawPile.pop());
+            computerHand.add(drawPile.pop());
         }
     }
 
@@ -354,7 +355,7 @@ public class StreetRaceGame implements StreetRaceGameHelper {
 
     public CardLocation getLocation(Card card) {
 
-        if (playerHand.getList().contains(card)) {
+        if (playerHand.contains(card)) {
             return CardLocation.PLAYER_HAND;
         } else if (playerTableau.getDistancePile().contains(card)) {
             return CardLocation.PLAYER_DISTANCE_PILE;
@@ -364,7 +365,7 @@ public class StreetRaceGame implements StreetRaceGameHelper {
             return CardLocation.PLAYER_SAFETY_PILE;
         } else if (playerTableau.getBattlePile().contains(card)) {
             return CardLocation.PLAYER_BATTLE_PILE;
-        } else if (computerHand.getList().contains(card)) {
+        } else if (computerHand.contains(card)) {
             return CardLocation.COMPUTER_HAND;
         } else if (computerTableau.getDistancePile().contains(card)) {
             return CardLocation.COMPUTER_DISTANCE_PILE;
@@ -423,11 +424,11 @@ public class StreetRaceGame implements StreetRaceGameHelper {
         return deck;
     }
 
-    public Hand getPlayerHand() {
+    public ObservableList<Card> getPlayerHand() {
         return playerHand;
     }
 
-    public Hand getComputerHand() {
+    public ObservableList<Card> getComputerHand() {
         return computerHand;
     }
 
